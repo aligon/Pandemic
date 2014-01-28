@@ -1,0 +1,17 @@
+{
+  "name": "Pandemic Modeling",
+  "version": "0.0.1",
+  "private": true,
+  "description": "Uses an acl2 modeling engine to represent the spread of a pandemic",
+  "author": "Andrew Ligon",
+  "scripts": {
+    "start": "node app"
+  },
+  "dependencies": {
+    "express": "3.0.0rc5",
+    "jade": "*",
+    "connect": "*",
+    "stylus": "*",
+    "socket.io": "*"
+  }
+}
