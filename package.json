@@ -1,5 +1,5 @@
 {
-  "name": "Pandemic Modeling",
+  "name": "PandemicModeling",
   "version": "0.0.1",
   "private": true,
   "description": "Uses an acl2 modeling engine to represent the spread of a pandemic",
