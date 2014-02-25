@@ -1,11 +1,11 @@
 var spawn = require('child_process').spawn;
 
-function Main(){
+function Main() {
 	this.listeners = {
 		'event': 'funcname'
-	}
+	};
 
-	this.funcname = function(data){};
+	this.funcname = function(data) {};
 }
 
-module.export = Main;
+module.exports = Main;
