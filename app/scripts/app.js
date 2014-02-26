@@ -5,7 +5,7 @@ var PandemicApp = angular.module('PandemicApp', [
 	'ngRoute'
 ]);
 
-PandemicApp.config(['$routProvider', function($routeProvider) {
+PandemicApp.config(['$routeProvider', function($routeProvider) {
 		$routeProvider
 			.when('/', {
 				templateUrl: 'views/main.html',

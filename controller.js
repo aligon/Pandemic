@@ -5,7 +5,7 @@ function Main() {
 		'event': 'funcname'
 	};
 
-	this.funcname = function(data) {};
+	this.funcname = function(data) {console.log('Test Event received', data)};
 }
 
 module.exports = Main;

@@ -27,6 +27,10 @@ app.configure('developement', function() {
 	app.user(express.errorHandler());
 });
 
+// app.get('/state/:index', function(req, res) {
+// 	var json = 
+// })
+
 app.get('/', function(req, res) {
 	res.redirect('/index.html');
 });
