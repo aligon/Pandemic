@@ -6,8 +6,8 @@
 			"id": "#region1",
 			"name": "region1",
 			"connections": {
-				"in": ["region2"],
-				"out": ["region2"]
+				"incoming": ["region2"],
+				"outgoing": ["region2"]
 			},
 			"population": {
 				"adults": 3000,
