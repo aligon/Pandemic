@@ -1,11 +1,14 @@
-var spawn = require('child_process').spawn;
+var spawn = require('child_process').spawn,
+	regionConfig = require('./RegionConfig.json');
 
 function Main() {
 	this.listeners = {
-		'event': 'funcname'
+		'request-region-config': 'emitRegionConfig'
 	};
 
-	this.funcname = function(data) {console.log('Test Event received', data)};
+	this.emitRegionConfig = function() {
+		this.socket.emit('return-region-config', regionConfig.Regions);
+	};
 }
 
 module.exports = Main;
