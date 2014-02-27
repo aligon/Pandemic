@@ -1,0 +1,18 @@
+{
+	"TotalNumberOfRegions": 5,
+	"MaxAllowedProcesses": 5,
+	"Regions": {
+		"region1": {
+			"id": "#region1",
+			"name": "region1",
+			"connections": {
+				"in": ["region2"],
+				"out": ["region2"]
+			},
+			"population": {
+				"adults": 3000,
+				"minors": 3000
+			}
+		}
+	}
+}
