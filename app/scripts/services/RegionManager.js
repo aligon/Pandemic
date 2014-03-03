@@ -1,5 +1,5 @@
 function Region(config) {
-	var i, incoming, outgoing;
+	var i, incoming, outgoing, initialState;
 
 	this.population = config.population;
 	this.id = config.id;
@@ -9,43 +9,112 @@ function Region(config) {
 		outgoing: {}
 	};
 
+	this.states = [];
+
+	initialState{
+		contactRate: {
+			adults: {
+				adults: 0,
+				minors: 0
+			},
+			minors: {
+				adults: 0,
+				minors: 0
+			}
+		},
+		travelRates: {
+			incoming: {},
+			outgoing: {}
+		},
+		susceptible: {
+			adults: this.population.adults,
+			minors: this.population.minors
+		},
+		exposed: {
+			adults: 0,
+			minors: 0
+		},
+		infected: {
+			adults: 0,
+			minors: 0
+		},
+		recovered: {
+			adults: 0,
+			minors: 0
+		},
+		deceased: {
+			adults: 0,
+			minors: 0
+		}
+	});
+
 	incoming = config.connections.incoming;
 	outgoing = config.connections.outgoing;
 
 	for (i in incoming) {
 		if (incoming.hasOwnProperty(i)) {
 			this.connections.incoming[incoming[i]] = 0;
+			initialState.travelRates.incoming[incoing[i]] = 0;
 		}
 	}
 
 	for (i in outgoing) {
 		if (outgoing.hasOwnProperty(i)) {
 			this.connections.outgoing[outgoing[i]] = 0;
+			initialState.travelRates.outgoing[outgoing[i]] = 0;
 		}
 	}
+
+	this.states.push(initialState);
+
+	this.addState = function(state) {
+		this.states.push(state);
+	};
+
+
+	this.getState = function(i) {
+		return this.states[i];
+	};
 }
 
 PandemicApp.service('RegionManager', ['SocketManager', '$http', function(SocketManager, $http) {
 	var socket = SocketManager.getConnection(),
-		names = {}, c = 0;
+		names = {}, me = this;
 
-	this.regions = [];
+	me.regions = [];
 
 	socket.addListener('return-region-config', function(data) {
-		var i;
+		var i, c = 0;
 
 		for (i in data) {
 			if (data.hasOwnProperty(i)) {
-				regions[c] = new Region(data[i]);
+				me.regions[c] = new Region(data[i]);
 				names[i] = c;
 				c++;
 			}
 		}
 	}, this);
 
+	socket.addListener('state-update', function(data) {
+		var i, c;
+
+		for (i in data) {
+			if (data.hasOwnPropety(i)) {
+				c = names[i];
+				me.regions[c].addState(data[i]);
+			}
+		}
+
+	});
+
 	socket.emit('request-region-config');
 
-	this.getRegion = function(name) {
+	me.getRegion = function(name) {
 		return regions[names[name]];
+	};
+
+
+	me.getStateForServer = function(i) {
+
 	};
 }]);
