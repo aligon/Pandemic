@@ -1,0 +1,2 @@
+{'Disease':{'Mortality Rate':23,'Recovery Rate':89},'Region1':{'Adult Pop':3432,'Child Pop':2343,'Adult Infected':23,'Child Infected':234},'Region2':{'Adult Pop':0987,'Child Pop':234}}
+
