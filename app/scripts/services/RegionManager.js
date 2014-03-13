@@ -54,7 +54,7 @@ function Region(config) {
 	for (i in incoming) {
 		if (incoming.hasOwnProperty(i)) {
 			this.connections.incoming[incoming[i]] = 0;
-			initialState.travelRates.incoming[incomsing[i]] = 0;
+			initialState.travelRates.incoming[incoming[i]] = 0;
 		}
 	}
 

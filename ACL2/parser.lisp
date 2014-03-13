@@ -282,7 +282,9 @@
   (or (not (consp (cdr pairs)))
       (and (key< (caar pairs) (caadr pairs))
            (increasing-pairs? (cdr pairs)))))
-;-----------------------------------------------------------------------------------------------
+;###################################################################################
+;    			JSON -> AVL tree
+
 ;Retrieves the value given the key
 (defun avl-get (tr k)
    (cdr (avl-retrieve tr k)))
@@ -306,10 +308,11 @@
 ;Gets the length of the string represented by the tree
 (defun tree-length (chrs num)
    (if (equal (car chrs) #\})
-       (+ num 1)
+       (+ num 2)
        (tree-length (cdr chrs) (+ num 1))))
 
 (mutual-recursion
+ ; Returns a list where the first element is the tree and the second is the char length of the tree
 (defun val-tree (chrs tr)
    (if (consp chrs)
    	(if (equal (car chrs) #\')
@@ -319,10 +322,10 @@
            	     (vlist (val (nthcdr (+(length key) 2) chrs))); nthcdr-key length + 2 accounts for quotes on either side of the key.
               		(value (car vlist))
               		(vlen (cadr vlist)))
-  		   		(val-tree (nthcdr (+ (length key) vlen 4) chrs) (avl-insert tr key value)))) ; Plus 4 accounts for the quotes on the key, the colon, and the comma
-	 	 (if (equal (car chrs) #\})
-         		   tr
-            (val-tree (nthcdr 1 chrs) tr)))
+  		   		(val-tree (nthcdr (+ (length key) vlen 3) chrs) (avl-insert tr key value)))) ; Plus 4 accounts for the quotes on the key, the colon, and the comma
+	    (if (equal (car chrs) #\})
+         	    tr
+              (val-tree (nthcdr 1 chrs) tr)))
        tr))
 ;Returns  a list where the first element is the value (Either a real number or a tree) and the second is the length of the string it represents.            
 (defun val (chrs)
@@ -339,6 +342,74 @@
            (parse (cdr json))
            (val-tree json (empty-tree)))
        nil))
+
+;###################################################################################
+
+; Combines AVL trees into one tree
+(defun avl-combine-r (trs newTr)
+   (if (consp trs)
+       (let* ((tr (car trs))
+              (key (car (keys tr))))
+             (avl-combine-r (cdr trs)(avl-insert newTr (car (keys tr)) (avl-get tr key))))
+       newTr))
+
+(defun avl-combine (trs)
+   (avl-combine-r trs (empty-tree)))
+
+;###################################################################################
+;    AVL tree -> JSON
+
+(defun deparse (tr)
+   
+
+
+
+;###################################################################################
+; Testing stuff
+
+(defun numCharP (chr) ; Determines if the character is a valid number character
+   (if (or (equal chr #\0)(equal chr #\1)(equal chr #\2)(equal chr #\3)(equal chr #\4)(equal chr #\5)(equal chr #\6)(equal chr #\7)(equal chr #\8)(equal chr #\9))
+       t
+       nil))
+       
+
+(defun valid-val (chrs) ;Determines if the sequence of characters until the , is a valid number
+   (if (equal (car chrs) #\,)
+       t
+       (if (numCharP (car chrs))
+           (valid-val (cdr chrs))
+           nil)))
+
+(defun jkv-pair? (json) ; returns length and validity
+   (if (equal (cadr json) #\')
+           (let* ((key-len (length (get-key (cddr json))))
+                  (post-key (nthcdr (+ key-len 2) json))) ;Gets the length of the key including quotes
+                 (if (equal (car post-key) #\:) ; Varifies that : comes after key
+                     (if (equal (cadr post-key) #\{ )
+                         (jobject? (cddr post-key))
+                         (if (valid-val (cddr post-key))
+                             
+
+(defun jobject? (json) ; returns length and validity
+   (if (equal (car json) #\{)
+       (if (equal (cadr json) #\')
+           (let* ((key-len (length (get-key (cddr json))))
+                  (post-key (nthcdr (+ key-len 2) json))) ;Gets the length of the key including quotes
+                 (if (equal (car post-key) #\:) ; Varifies that : comes after key
+                     (if (equal (cadr post-key) #\{ )
+                         (jobject? (cddr post-key))
+                         
+
+
+(defun json? (json)
+      (if (consp json)
+          (if (equal (car json) #\{)
+              (let* ((object (jobject? (cdr json)))
+                     (jlen (first object))
+                     (valid (second object)))
+                    valid)
+                nil)
+            nil))
            
    
    

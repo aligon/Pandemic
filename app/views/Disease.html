@@ -1,0 +1,10 @@
+<div class = 'disease-container'>
+	<label for='exposure'>Exposure</label>
+	<input type='number' name='exposure' value='0' ng-model='Disease.exposureRate'>
+	<label for='infection'>Infection</label>
+	<input type='number' name='infection' value='0' ng-model='Disease.infectionRate'>
+	<label for='exposure'>Mortality</label>
+	<input type='number' name='mortality' value='0' ng-change='Disease.moratiltyChange()' ng-model='Disease.mortalityRate'> 
+	<label for='exposure'>Recovery</label>
+	<input type='number' name='recovery' value='0' ng-change='Disease.recoveryChanged()' ng-model='Disease.recoveryRate'> 
+</div>

@@ -28,7 +28,7 @@ app.configure('developement', function() {
 });
 
 // app.get('/state/:index', function(req, res) {
-// 	var json = 
+// 	var json =
 // })
 
 app.get('/', function(req, res) {
