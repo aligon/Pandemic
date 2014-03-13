@@ -14,7 +14,28 @@ function Main() {
 	/*
 		State template:
 		{
+			regions: 'regionName1,regionName2',
+			disease: {
+				exposureRate: {Number},
+				infectionRate: {Number},
+				mortalityRate: {Number},
+				recoveryRate: {Number}
+			},
 			regionName: {
+				population: {
+					adults: {Number},
+					minors: {Number}
+				},
+				contact: {
+					adults: {
+						adults: {Number},
+						minors: {Number}
+					},
+					minors: {
+						adults: {Number},
+						minors: {Number}
+					},
+				},
 				susceptible: {
 					adults: {Number},
 					minors: {Number}
