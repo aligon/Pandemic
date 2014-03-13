@@ -1,5 +1,5 @@
-PandemicApp.directive('Disease', function() {
+PandemicApp.directive('disease', function() {
 	return {
-		templateUrl: 'views/SlideOut.html'
+		templateUrl: 'views/Disease.html'
 	};
 });
