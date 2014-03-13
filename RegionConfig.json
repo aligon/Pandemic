@@ -2,16 +2,592 @@
 	"TotalNumberOfRegions": 5,
 	"MaxAllowedProcesses": 5,
 	"Regions": {
-		"region1": {
+		"Alabama": {
 			"id": "#region1",
-			"name": "region1",
+			"name": "Alabama",
 			"connections": {
 				"incoming": ["region2"],
 				"outgoing": ["region2"]
 			},
 			"population": {
-				"adults": 3000,
-				"minors": 3000
+				"adults": 3328507,
+				"minors": 1118593
+			}
+		}
+		"Arizona": {
+			"id": "#region1",
+			"name": "Arizona",
+			"connections": {
+				"incoming": ["region2"],
+				"outgoing": ["region2"]
+			},
+			"population": {
+				"adults": 3773910,
+				"minors": 1356722
+			}
+		}
+		"Arkansas": {
+			"id": "#region1",
+			"name": "Arkansas",
+			"connections": {
+				"incoming": ["region2"],
+				"outgoing": ["region2"]
+			},
+			"population": {
+				"adults": 1996342,
+				"minors": 677058
+			}
+		}
+		"California": {
+			"id": "#region1",
+			"name": "California",
+			"connections": {
+				"incoming": ["region2"],
+				"outgoing": ["region2"]
+			},
+			"population": {
+				"adults": 24690147,
+				"minors": 9181501
+			}
+		}
+		"Colorado": {
+			"id": "#region1",
+			"name": "Colorado",
+			"connections": {
+				"incoming": ["region2"],
+				"outgoing": ["region2"]
+			},
+			"population": {
+				"adults": 3208862,
+				"minors": 1092399
+			}
+		}
+		"Connecticut": {
+			"id": "#region1",
+			"name": "Connecticut",
+			"connections": {
+				"incoming": ["region2"],
+				"outgoing": ["region2"]
+			},
+			"population": {
+				"adults": 2569079,
+				"minors": 836486
+			}
+		}
+		"Delaware": {
+			"id": "#region1",
+			"name": "Delaware",
+			"connections": {
+				"incoming": ["region2"],
+				"outgoing": ["region2"]
+			},
+			"population": {
+				"adults": 590098,
+				"minors": 193502
+			}
+		}
+		"District of Columbia": {
+			"id": "#region1",
+			"name": "District of Columbia",
+			"connections": {
+				"incoming": ["region2"],
+				"outgoing": ["region2"]
+			},
+			"population": {
+				"adults": 458802,
+				"minors": 113257
+			}
+		}
+		"Florida": {
+			"id": "#region1",
+			"name": "Florida",
+			"connections": {
+				"incoming": ["region2"],
+				"outgoing": ["region2"]
+			},
+			"population": {
+				"adults": 12362177,
+				"minors": 3620198
+			}
+		}
+		"Georgia": {
+			"id": "#region1",
+			"name": "Georgia",
+			"connections": {
+				"incoming": ["region2"],
+				"outgoing": ["region2"]
+			},
+			"population": {
+				"adults": 6029805,
+				"minors": 2156648
+			}
+		}
+		"Idaho": {
+			"id": "#region1",
+			"name": "Idaho",
+			"connections": {
+				"incoming": ["region2"],
+				"outgoing": ["region2"]
+			},
+			"population": {
+				"adults": 927646,
+				"minors": 366307
+			}
+		}
+		"Illinois": {
+			"id": "#region1",
+			"name": "Illinois",
+			"connections": {
+				"incoming": ["region2"],
+				"outgoing": ["region2"]
+			},
+			"population": {
+				"adults": 9189797,
+				"minors": 3229496
+			}
+		}
+		"Indiana": {
+			"id": "#region1",
+			"name": "Indiana",
+			"connections": {
+				"incoming": ["region2"],
+				"outgoing": ["region2"]
+			},
+			"population": {
+				"adults": 4514292,
+				"minors": 1566193
+			}
+		}
+		"Iowa": {
+			"id": "#region1",
+			"name": "Iowa",
+			"connections": {
+				"incoming": ["region2"],
+				"outgoing": ["region2"]
+			},
+			"population": {
+				"adults": 2197593,
+				"minors": 728731
+			}
+		}
+		"Kansas": {
+			"id": "#region1",
+			"name": "Kansas",
+			"connections": {
+				"incoming": ["region2"],
+				"outgoing": ["region2"]
+			},
+			"population": {
+				"adults": 1979470,
+				"minors": 708948
+			}
+		}
+		"Kentuky": {
+			"id": "#region1",
+			"name": "Kentucky",
+			"connections": {
+				"incoming": ["region2"],
+				"outgoing": ["region2"]
+			},
+			"population": {
+				"adults": 3052293,
+				"minors": 989476
+			}
+		}
+		"Louisiana": {
+			"id": "#region1",
+			"name": "Louisiana",
+			"connections": {
+				"incoming": ["region2"],
+				"outgoing": ["region2"]
+			},
+			"population": {
+				"adults": 3255761,
+				"minors": 1213215
+			}
+		}
+		"Maine": {
+			"id": "#region1",
+			"name": "Maine",
+			"connections": {
+				"incoming": ["region2"],
+				"outgoing": ["region2"]
+			},
+			"population": {
+				"adults": 975247,
+				"minors": 299676
+			}
+		}
+		"Maryland": {
+			"id": "#region1",
+			"name": "Maryland",
+			"connections": {
+				"incoming": ["region2"],
+				"outgoing": ["region2"]
+			},
+			"population": {
+				"adults": 3948068,
+				"minors": 1348418
+			}
+		}
+		"Massachusetts": {
+			"id": "#region1",
+			"name": "Massachusetts",
+			"connections": {
+				"incoming": ["region2"],
+				"outgoing": ["region2"]
+			},
+			"population": {
+				"adults": 4859276,
+				"minors": 1489821
+			}
+		}
+		"Michigan": {
+			"id": "#region1",
+			"name": "Michigan",
+			"connections": {
+				"incoming": ["region2"],
+				"outgoing": ["region2"]
+			},
+			"population": {
+				"adults": 7356584,
+				"minors": 2581860
+			}
+		}
+		"Minnesota": {
+			"id": "#region1",
+			"name": "Minnesota",
+			"connections": {
+				"incoming": ["region2"],
+				"outgoing": ["region2"]
+			},
+			"population": {
+				"adults": 3627677,
+				"minors": 1281802
+			}
+		}
+		"Mississippi": {
+			"id": "#region1",
+			"name": "Mississippi",
+			"connections": {
+				"incoming": ["region2"],
+				"outgoing": ["region2"]
+			},
+			"population": {
+				"adults": 2074000,
+				"minors": 770659
+			}
+		}
+		"Missouri": {
+			"id": "#region1",
+			"name": "Missouri",
+			"connections": {
+				"incoming": ["region2"],
+				"outgoing": ["region2"]
+			},
+			"population": {
+				"adults": 4175061,
+				"minors": 1420150
+			}
+		}
+		"Montana": {
+			"id": "#region1",
+			"name": "Montana",
+			"connections": {
+				"incoming": ["region2"],
+				"outgoing": ["region2"]
+			},
+			"population": {
+				"adults": 673865,
+				"minors": 228330
+			}
+		}
+		"Nebraska": {
+			"id": "#region1",
+			"name": "Nebraska",
+			"connections": {
+				"incoming": ["region2"],
+				"outgoing": ["region2"]
+			},
+			"population": {
+				"adults": 1264297,
+				"minors": 446966
+			}
+		}
+		"Nevada": {
+			"id": "#region1",
+			"name": "Nevada",
+			"connections": {
+				"incoming": ["region2"],
+				"outgoing": ["region2"]
+			},
+			"population": {
+				"adults": 1490425,
+				"minors": 507832
+			}
+		}
+		"New Hampshire": {
+			"id": "#region1",
+			"name": "New Hampshire",
+			"connections": {
+				"incoming": ["region2"],
+				"outgoing": ["region2"]
+			},
+			"population": {
+				"adults": 927873,
+				"minors": 307913
+			}
+		}
+		"New Jersey": {
+			"id": "#region1",
+			"name": "New Jersey",
+			"connections": {
+				"incoming": ["region2"],
+				"outgoing": ["region2"]
+			},
+			"population": {
+				"adults": 6338905,
+				"minors": 2075445
+			}
+		}
+		"New Mexico": {
+			"id": "#region1",
+			"name": "New Mexico",
+			"connections": {
+				"incoming": ["region2"],
+				"outgoing": ["region2"]
+			},
+			"population": {
+				"adults": 1313697,
+				"minors": 505349
+			}
+		}
+		"New York": {
+			"id": "#region1",
+			"name": "New York",
+			"connections": {
+				"incoming": ["region2"],
+				"outgoing": ["region2"]
+			},
+			"population": {
+				"adults": 14331722,
+				"minors": 4644735
+			}
+		}
+		"North Carolina": {
+			"id": "#region1",
+			"name": "North Carolina",
+			"connections": {
+				"incoming": ["region2"],
+				"outgoing": ["region2"]
+			},
+			"population": {
+				"adults": 6094398,
+				"minors": 1954915
+			}
+		}
+		"North Dakota": {
+			"id": "#region1",
+			"name": "North Dakota",
+			"connections": {
+				"incoming": ["region2"],
+				"outgoing": ["region2"]
+			},
+			"population": {
+				"adults": 481999,
+				"minors": 160201
+			}
+		}
+		"Ohio": {
+			"id": "#region1",
+			"name": "Ohio",
+			"connections": {
+				"incoming": ["region2"],
+				"outgoing": ["region2"]
+			},
+			"population": {
+				"adults": 8475671,
+				"minors": 2877469
+			}
+		}
+		"Oklahoma": {
+			"id": "#region1",
+			"name": "Oklahoma",
+			"connections": {
+				"incoming": ["region2"],
+				"outgoing": ["region2"]
+			},
+			"population": {
+				"adults": 2564183,
+				"minors": 886471
+			}
+		}
+		"Oregon": {
+			"id": "#region1",
+			"name": "Oregon",
+			"connections": {
+				"incoming": ["region2"],
+				"outgoing": ["region2"]
+			},
+			"population": {
+				"adults": 2580906,
+				"minors": 840493
+			}
+		}
+		"Pennsylvania": {
+			"id": "#region1",
+			"name": "Pennsylvania",
+			"connections": {
+				"incoming": ["region2"],
+				"outgoing": ["region2"]
+			},
+			"population": {
+				"adults": 9377742,
+				"minors": 2903312
+			}
+		}
+		"Rhode Island": {
+			"id": "#region1",
+			"name": "Rhode Island",
+			"connections": {
+				"incoming": ["region2"],
+				"outgoing": ["region2"]
+			},
+			"population": {
+				"adults": 801968,
+				"minors": 246351
+			}
+		}
+		"South Carolina": {
+			"id": "#region1",
+			"name": "South Carolina",
+			"connections": {
+				"incoming": ["region2"],
+				"outgoing": ["region2"]
+			},
+			"population": {
+				"adults": 3007493,
+				"minors": 1004519
+			}
+		}
+		"South Dakota": {
+			"id": "#region1",
+			"name": "South Dakota",
+			"connections": {
+				"incoming": ["region2"],
+				"outgoing": ["region2"]
+			},
+			"population": {
+				"adults": 554561,
+				"minors": 200283
+			}
+		}
+		"Tennessee": {
+			"id": "#region1",
+			"name": "Tennessee",
+			"connections": {
+				"incoming": ["region2"],
+				"outgoing": ["region2"]
+			},
+			"population": {
+				"adults": 4297773,
+				"minors": 1391510
+			}
+		}
+		"Texas": {
+			"id": "#region1",
+			"name": "Texas",
+			"connections": {
+				"incoming": ["region2"],
+				"outgoing": ["region2"]
+			},
+			"population": {
+				"adults": 14999103,
+				"minors": 5852717
+			}
+		}
+		"Utah": {
+			"id": "#region1",
+			"name": "Utah",
+			"connections": {
+				"incoming": ["region2"],
+				"outgoing": ["region2"]
+			},
+			"population": {
+				"adults": 1519580,
+				"minors": 713589
+			}
+		}
+		"Vermont": {
+			"id": "#region1",
+			"name": "Vermont",
+			"connections": {
+				"incoming": ["region2"],
+				"outgoing": ["region2"]
+			},
+			"population": {
+				"adults": 461652,
+				"minors": 147175
+			}
+		}
+		"Virginia": {
+			"id": "#region1",
+			"name": "Virginia",
+			"connections": {
+				"incoming": ["region2"],
+				"outgoing": ["region2"]
+			},
+			"population": {
+				"adults": 5349031,
+				"minors": 1729484
+			}
+		}
+		"Washington": {
+			"id": "#region1",
+			"name": "Washington",
+			"connections": {
+				"incoming": ["region2"],
+				"outgoing": ["region2"]
+			},
+			"population": {
+				"adults": 4389611,
+				"minors": 1504510
+			}
+		}
+		"West Virginia": {
+			"id": "#region1",
+			"name": "West Virginia",
+			"connections": {
+				"incoming": ["region2"],
+				"outgoing": ["region2"]
+			},
+			"population": {
+				"adults": 1408256,
+				"minors": 400088
+			}
+		}
+		"Wisconsin": {
+			"id": "#region1",
+			"name": "Wisconsin",
+			"connections": {
+				"incoming": ["region2"],
+				"outgoing": ["region2"]
+			},
+			"population": {
+				"adults": 4001177,
+				"minors": 1362498
+			}
+		}
+		"Wyoming": {
+			"id": "#region1",
+			"name": "Wyoming",
+			"connections": {
+				"incoming": ["region2"],
+				"outgoing": ["region2"]
+			},
+			"population": {
+				"adults": 366434,
+				"minors": 127348
 			}
 		}
 	}
