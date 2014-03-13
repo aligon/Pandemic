@@ -358,9 +358,26 @@
 
 ;###################################################################################
 ;    AVL tree -> JSON
+(defun int->chrs (int)
+   (str->chrs (rat->str int 0)))
 
-(defun deparse (tr)
    
+
+(defun deparse-r(keys tr) ; Recursive function
+   (if (consp keys)
+       (let* ((value (avl-get tr (car keys)))) ; Value should be either a number or a tree
+             (if (natp value) 
+                 (if (consp (cdr keys)) ; If the value is a number
+                     (append (list #\') (str->chrs (car keys))  (list #\' #\:) (int->chrs value) '(#\,) (deparse-r (cdr keys) tr)) ; Add ("<key>":<value>,) to the front of the rest of the expression
+                     (append (list #\') (str->chrs (car keys))  (list #\' #\:) (int->chrs value) (deparse-r (cdr keys) tr))) ; Add ("<key>":<value>) to the front of the rest of the expression
+                 (if (consp (cdr keys)) ; If the value is a tree
+                     (append (list #\') (str->chrs (car keys)) (list #\' #\: #\{) (deparse-r (keys value) value) '(#\,) (deparse-r (cdr keys) tr)) ; Add ("<key>":{<tree representation>},) to the rest of the expression
+                     (append (list #\') (str->chrs (car keys)) (list #\' #\: #\{) (deparse-r (keys value) value) (deparse-r (cdr keys) tr))))); Add ("<key>":{<tree representation>}) to the rest of the expression
+       (list #\})));If there are noe more values in keys return } signifying the end of the tree
+   
+; Takes in an AVL-tree and returns the JSON string representing the tree
+(defun deparse (tr) 
+   (chrs->str (cons #\{ (deparse-r (keys tr) tr ))))
 
 
 
@@ -373,45 +390,6 @@
        nil))
        
 
-(defun valid-val (chrs) ;Determines if the sequence of characters until the , is a valid number
-   (if (equal (car chrs) #\,)
-       t
-       (if (numCharP (car chrs))
-           (valid-val (cdr chrs))
-           nil)))
-
-(defun jkv-pair? (json) ; returns length and validity
-   (if (equal (cadr json) #\')
-           (let* ((key-len (length (get-key (cddr json))))
-                  (post-key (nthcdr (+ key-len 2) json))) ;Gets the length of the key including quotes
-                 (if (equal (car post-key) #\:) ; Varifies that : comes after key
-                     (if (equal (cadr post-key) #\{ )
-                         (jobject? (cddr post-key))
-                         (if (valid-val (cddr post-key))
-                             
-
-(defun jobject? (json) ; returns length and validity
-   (if (equal (car json) #\{)
-       (if (equal (cadr json) #\')
-           (let* ((key-len (length (get-key (cddr json))))
-                  (post-key (nthcdr (+ key-len 2) json))) ;Gets the length of the key including quotes
-                 (if (equal (car post-key) #\:) ; Varifies that : comes after key
-                     (if (equal (cadr post-key) #\{ )
-                         (jobject? (cddr post-key))
-                         
-
-
-(defun json? (json)
-      (if (consp json)
-          (if (equal (car json) #\{)
-              (let* ((object (jobject? (cdr json)))
-                     (jlen (first object))
-                     (valid (second object)))
-                    valid)
-                nil)
-            nil))
-           
-   
    
    
    
