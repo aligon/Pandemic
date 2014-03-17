@@ -6,8 +6,8 @@
 			"id": "#AL",
 			"name": "Alabama",
 			"connections": {
-				"incoming": ["region2"],
-				"outgoing": ["region2"]
+				"incoming": ["Florida", "Georgia", "Mississippi", "Tennessee"],
+				"outgoing": ["Florida", "Georgia", "Mississippi", "Tennessee"]
 			},
 			"population": {
 				"adults": 3328507,
@@ -18,8 +18,8 @@
 			"id": "#AZ",
 			"name": "Arizona",
 			"connections": {
-				"incoming": ["region2"],
-				"outgoing": ["region2"]
+				"incoming": ["California", "Colorado", "New Mexico", "Nevada" , "Utah"],
+				"outgoing": ["California", "Colorado", "New Mexico", "Nevada" , "Utah"]
 			},
 			"population": {
 				"adults": 3773910,
@@ -30,8 +30,8 @@
 			"id": "#AR",
 			"name": "Arkansas",
 			"connections": {
-				"incoming": ["region2"],
-				"outgoing": ["region2"]
+				"incoming": ["Missouri", "Mississippi", "Oklahoma", "Tennessee", "Texas" , "Louisiana"],
+				"outgoing": ["Missouri", "Mississippi", "Oklahoma", "Tennessee", "Texas" , "Louisiana"]
 			},
 			"population": {
 				"adults": 1996342,
@@ -42,8 +42,8 @@
 			"id": "#CA",
 			"name": "California",
 			"connections": {
-				"incoming": ["region2"],
-				"outgoing": ["region2"]
+				"incoming": ["Nevada", "Oregon" , "Arizona"],
+				"outgoing": ["Nevada", "Oregon" , "Arizona"]
 			},
 			"population": {
 				"adults": 24690147,
@@ -54,8 +54,8 @@
 			"id": "#CO",
 			"name": "Colorado",
 			"connections": {
-				"incoming": ["region2"],
-				"outgoing": ["region2"]
+				"incoming": ["Arizona" , "Kansas" , "Nebraska", "New Mexico" , "Oklahoma" , "Utah" , "Wyoming"],
+				"outgoing": ["Arizona" , "Kansas" , "Nebraska", "New Mexico" , "Oklahoma" , "Utah" , "Wyoming"]
 			},
 			"population": {
 				"adults": 3208862,
@@ -66,8 +66,8 @@
 			"id": "#CT",
 			"name": "Connecticut",
 			"connections": {
-				"incoming": ["region2"],
-				"outgoing": ["region2"]
+				"incoming": ["Massachusetts" , "New York" , "Rhode Island"],
+				"outgoing": ["Massachusetts" , "New York" , "Rhode Island"]
 			},
 			"population": {
 				"adults": 2569079,
@@ -78,8 +78,8 @@
 			"id": "#DE",
 			"name": "Delaware",
 			"connections": {
-				"incoming": ["region2"],
-				"outgoing": ["region2"]
+				"incoming": ["Maryland" , "New Jersey" , "Pennsylvania"],
+				"outgoing": ["Maryland" , "New Jersey" , "Pennsylvania"]
 			},
 			"population": {
 				"adults": 590098,
@@ -90,8 +90,8 @@
 			"id": "#DC",
 			"name": "District of Columbia",
 			"connections": {
-				"incoming": ["region2"],
-				"outgoing": ["region2"]
+				"incoming": ["Maryland" , "Virginia"],
+				"outgoing": ["Maryland" , "Virginia"]
 			},
 			"population": {
 				"adults": 458802,
@@ -102,8 +102,8 @@
 			"id": "#FL",
 			"name": "Florida",
 			"connections": {
-				"incoming": ["region2"],
-				"outgoing": ["region2"]
+				"incoming": ["Alabama" , "Georgia"],
+				"outgoing": ["Alabama" , "Georgia"]
 			},
 			"population": {
 				"adults": 12362177,
@@ -114,8 +114,8 @@
 			"id": "#GA",
 			"name": "Georgia",
 			"connections": {
-				"incoming": ["region2"],
-				"outgoing": ["region2"]
+				"incoming": ["North Carolina" , "South Carolina" , "Tennessee" , "Florida" , "Alabama"],
+				"outgoing": ["North Carolina" , "South Carolina" , "Tennessee" , "Florida" , "Alabama"]
 			},
 			"population": {
 				"adults": 6029805,
@@ -126,8 +126,8 @@
 			"id": "#ID",
 			"name": "Idaho",
 			"connections": {
-				"incoming": ["region2"],
-				"outgoing": ["region2"]
+				"incoming": ["Montana" , "Nevada" , "Oregon" , "Utah" , "Washington" , "Wyoming"],
+				"outgoing": ["Montana" , "Nevada" , "Oregon" , "Utah" , "Washington" , "Wyoming"]
 			},
 			"population": {
 				"adults": 927646,
@@ -138,8 +138,8 @@
 			"id": "#IL",
 			"name": "Illinois",
 			"connections": {
-				"incoming": ["region2"],
-				"outgoing": ["region2"]
+				"incoming": ["Iowa" , "Indiana" , "Kentucky" , "Missouri" , "Wisconsin"],
+				"outgoing": ["Iowa" , "Indiana" , "Kentucky" , "Missouri" , "Wisconsin"]
 			},
 			"population": {
 				"adults": 9189797,
@@ -150,8 +150,8 @@
 			"id": "#IN",
 			"name": "Indiana",
 			"connections": {
-				"incoming": ["region2"],
-				"outgoing": ["region2"]
+				"incoming": ["Kentucky" , "Michigan" , "Ohio" , "Illinois"],
+				"outgoing": ["Kentucky" , "Michigan" , "Ohio" , "Illinois"]
 			},
 			"population": {
 				"adults": 4514292,
@@ -162,8 +162,8 @@
 			"id": "#IA",
 			"name": "Iowa",
 			"connections": {
-				"incoming": ["region2"],
-				"outgoing": ["region2"]
+				"incoming": ["Minnesota" , "Missouri" , "Nebraska" , "South Dakota" , "Wisconsin" , "Illinois"],
+				"outgoing": ["Minnesota" , "Missouri" , "Nebraska" , "South Dakota" , "Wisconsin" , "Illinois"]
 			},
 			"population": {
 				"adults": 2197593,
@@ -174,20 +174,20 @@
 			"id": "#KS",
 			"name": "Kansas",
 			"connections": {
-				"incoming": ["region2"],
-				"outgoing": ["region2"]
+				"incoming": ["Missouri" , "Nebraska" , "Oklahoma" , "Colorado"],
+				"outgoing": ["Missouri" , "Nebraska" , "Oklahoma" , "Colorado"]
 			},
 			"population": {
 				"adults": 1979470,
 				"minors": 708948
 			}
 		},
-		"Kentuky": {
+		"Kentucky": {
 			"id": "#KY",
 			"name": "Kentucky",
 			"connections": {
-				"incoming": ["region2"],
-				"outgoing": ["region2"]
+				"incoming": ["Missouri" , "Ohio" , "Tennessee" , "Virginia" , "West Virginia" , "Illinois" , "Indiana"],
+				"outgoing": ["Missouri" , "Ohio" , "Tennessee" , "Virginia" , "West Virginia" , "Illinois" , "Indiana"]
 			},
 			"population": {
 				"adults": 3052293,
@@ -198,8 +198,8 @@
 			"id": "#LA",
 			"name": "Louisiana",
 			"connections": {
-				"incoming": ["region2"],
-				"outgoing": ["region2"]
+				"incoming": ["Mississippi" , "Texas" , "Arkansas"],
+				"outgoing": ["Mississippi" , "Texas" , "Arkansas"]
 			},
 			"population": {
 				"adults": 3255761,
@@ -210,8 +210,8 @@
 			"id": "#ME",
 			"name": "Maine",
 			"connections": {
-				"incoming": ["region2"],
-				"outgoing": ["region2"]
+				"incoming": ["New Hampshire"],
+				"outgoing": ["New Hampshire"]
 			},
 			"population": {
 				"adults": 975247,
@@ -222,8 +222,8 @@
 			"id": "#MD",
 			"name": "Maryland",
 			"connections": {
-				"incoming": ["region2"],
-				"outgoing": ["region2"]
+				"incoming": ["Pennsylvania" , "Delaware" , "District of Columbia" , "Virginia" , "West Virginia"],
+				"outgoing": ["Pennsylvania" , "Delaware" , "District of Columbia" , "Virginia" , "West Virginia"]
 			},
 			"population": {
 				"adults": 3948068,
@@ -234,8 +234,8 @@
 			"id": "#MA",
 			"name": "Massachusetts",
 			"connections": {
-				"incoming": ["region2"],
-				"outgoing": ["region2"]
+				"incoming": ["New Hampshire" , "Rhode Island" , "Connecticut" , "New York" , "Vermont"],
+				"outgoing": ["New Hampshire" , "Rhode Island" , "Connecticut" , "New York" , "Vermont"]
 			},
 			"population": {
 				"adults": 4859276,
@@ -246,8 +246,8 @@
 			"id": "#MI",
 			"name": "Michigan",
 			"connections": {
-				"incoming": ["region2"],
-				"outgoing": ["region2"]
+				"incoming": ["Ohio" , "Indiana" , "Wisconsin"],
+				"outgoing": ["Ohio" , "Indiana" , "Wisconsin"]
 			},
 			"population": {
 				"adults": 7356584,
@@ -258,8 +258,8 @@
 			"id": "#MN",
 			"name": "Minnesota",
 			"connections": {
-				"incoming": ["region2"],
-				"outgoing": ["region2"]
+				"incoming": ["Wisconsin" , "Iowa" , "South Dakota" , "North Dakota"],
+				"outgoing": ["Wisconsin" , "Iowa" , "South Dakota" , "North Dakota"]
 			},
 			"population": {
 				"adults": 3627677,
@@ -270,8 +270,8 @@
 			"id": "#MS",
 			"name": "Mississippi",
 			"connections": {
-				"incoming": ["region2"],
-				"outgoing": ["region2"]
+				"incoming": ["Tennessee" , "Alabama" , "Louisiana" , "Arkansas"],
+				"outgoing": ["Tennessee" , "Alabama" , "Louisiana" , "Arkansas"]
 			},
 			"population": {
 				"adults": 2074000,
@@ -282,8 +282,8 @@
 			"id": "#MO",
 			"name": "Missouri",
 			"connections": {
-				"incoming": ["region2"],
-				"outgoing": ["region2"]
+				"incoming": ["Iowa" , "Illinois" , "Kentucky" , "Tennessee" , "Arkansas" , "Oklahoma" , "Kansas" , "Nebraska"],
+				"outgoing": ["Iowa" , "Illinois" , "Kentucky" , "Tennessee" , "Arkansas" , "Oklahoma" , "Kansas" , "Nebraska"]
 			},
 			"population": {
 				"adults": 4175061,
@@ -294,8 +294,8 @@
 			"id": "#MT",
 			"name": "Montana",
 			"connections": {
-				"incoming": ["region2"],
-				"outgoing": ["region2"]
+				"incoming": ["North Dakota" , "South Dakota" , "Wyoming" , "Idaho"],
+				"outgoing": ["North Dakota" , "South Dakota" , "Wyoming" , "Idaho"]
 			},
 			"population": {
 				"adults": 673865,
@@ -306,8 +306,8 @@
 			"id": "#NE",
 			"name": "Nebraska",
 			"connections": {
-				"incoming": ["region2"],
-				"outgoing": ["region2"]
+				"incoming": ["South Dakota" , "Iowa" , "Missouri" , "Kansas" , "Colorado" , "Wyoming"],
+				"outgoing": ["South Dakota" , "Iowa" , "Missouri" , "Kansas" , "Colorado" , "Wyoming"]
 			},
 			"population": {
 				"adults": 1264297,
@@ -318,8 +318,8 @@
 			"id": "#NV",
 			"name": "Nevada",
 			"connections": {
-				"incoming": ["region2"],
-				"outgoing": ["region2"]
+				"incoming": ["Idaho" , "Utah" , "Arizona" , "California" , "Oregon"],
+				"outgoing": ["Idaho" , "Utah" , "Arizona" , "California" , "Oregon"]
 			},
 			"population": {
 				"adults": 1490425,
@@ -330,8 +330,8 @@
 			"id": "#NH",
 			"name": "New Hampshire",
 			"connections": {
-				"incoming": ["region2"],
-				"outgoing": ["region2"]
+				"incoming": ["Maine" , "Massachusetts" , "Vermont"],
+				"outgoing": ["Maine" , "Massachusetts" , "Vermont"]
 			},
 			"population": {
 				"adults": 927873,
@@ -342,8 +342,8 @@
 			"id": "#NJ",
 			"name": "New Jersey",
 			"connections": {
-				"incoming": ["region2"],
-				"outgoing": ["region2"]
+				"incoming": ["New York" , "Delaware" , "Pennsylvania"],
+				"outgoing": ["New York" , "Delaware" , "Pennsylvania"]
 			},
 			"population": {
 				"adults": 6338905,
@@ -354,8 +354,8 @@
 			"id": "#NM",
 			"name": "New Mexico",
 			"connections": {
-				"incoming": ["region2"],
-				"outgoing": ["region2"]
+				"incoming": ["Colorado" , "Oklahoma" , "Texas" , "Arizona" , "Utah"],
+				"outgoing": ["Colorado" , "Oklahoma" , "Texas" , "Arizona" , "Utah"]
 			},
 			"population": {
 				"adults": 1313697,
@@ -366,8 +366,8 @@
 			"id": "#NY",
 			"name": "New York",
 			"connections": {
-				"incoming": ["region2"],
-				"outgoing": ["region2"]
+				"incoming": ["Vermont" , "Massachusetts" , "Connecticut" , "New Jersey" , "Pennsylvania"],
+				"outgoing": ["Vermont" , "Massachusetts" , "Connecticut" , "New Jersey" , "Pennsylvania"]
 			},
 			"population": {
 				"adults": 14331722,
@@ -378,8 +378,8 @@
 			"id": "#NC",
 			"name": "North Carolina",
 			"connections": {
-				"incoming": ["region2"],
-				"outgoing": ["region2"]
+				"incoming": ["Virginia" , "South Carolina" , "Georgia" , "Tennessee"],
+				"outgoing": ["Virginia" , "South Carolina" , "Georgia" , "Tennessee"]
 			},
 			"population": {
 				"adults": 6094398,
@@ -390,8 +390,8 @@
 			"id": "#ND",
 			"name": "North Dakota",
 			"connections": {
-				"incoming": ["region2"],
-				"outgoing": ["region2"]
+				"incoming": ["Minnesota" , "South Dakota" , "Montana"],
+				"outgoing": ["Minnesota" , "South Dakota" , "Montana"]
 			},
 			"population": {
 				"adults": 481999,
@@ -402,8 +402,8 @@
 			"id": "#OH",
 			"name": "Ohio",
 			"connections": {
-				"incoming": ["region2"],
-				"outgoing": ["region2"]
+				"incoming": ["Pennsylvania" , "West Virginia" , "Kentucky" , "Indiana" , "Michigan"],
+				"outgoing": ["Pennsylvania" , "West Virginia" , "Kentucky" , "Indiana" , "Michigan"]
 			},
 			"population": {
 				"adults": 8475671,
@@ -414,8 +414,8 @@
 			"id": "#OK",
 			"name": "Oklahoma",
 			"connections": {
-				"incoming": ["region2"],
-				"outgoing": ["region2"]
+				"incoming": ["Kansas" , "Missouri" , "Arkansas" , "New Mexico" , "Colorado"],
+				"outgoing": ["Kansas" , "Missouri" , "Arkansas" , "New Mexico" , "Colorado"]
 			},
 			"population": {
 				"adults": 2564183,
@@ -426,8 +426,8 @@
 			"id": "#OR",
 			"name": "Oregon",
 			"connections": {
-				"incoming": ["region2"],
-				"outgoing": ["region2"]
+				"incoming": ["Washington" , "Idaho" , "Nevada" , "Colorado"],
+				"outgoing": ["Washington" , "Idaho" , "Nevada" , "Colorado"]
 			},
 			"population": {
 				"adults": 2580906,
@@ -438,8 +438,8 @@
 			"id": "#PA",
 			"name": "Pennsylvania",
 			"connections": {
-				"incoming": ["region2"],
-				"outgoing": ["region2"]
+				"incoming": ["New York" , "New Jersey" , "Delaware" , "Maryland" , "West Virginia" , "Ohio"],
+				"outgoing": ["New York" , "New Jersey" , "Delaware" , "Maryland" , "West Virginia" , "Ohio"]
 			},
 			"population": {
 				"adults": 9377742,
@@ -450,8 +450,8 @@
 			"id": "#RI",
 			"name": "Rhode Island",
 			"connections": {
-				"incoming": ["region2"],
-				"outgoing": ["region2"]
+				"incoming": ["Massachusetts" , "Connecticut"],
+				"outgoing": ["Massachusetts" , "Connecticut"]
 			},
 			"population": {
 				"adults": 801968,
@@ -462,8 +462,8 @@
 			"id": "#SC",
 			"name": "South Carolina",
 			"connections": {
-				"incoming": ["region2"],
-				"outgoing": ["region2"]
+				"incoming": ["North Carolina" , "Georgia"],
+				"outgoing": ["North Carolina" , "Georgia"]
 			},
 			"population": {
 				"adults": 3007493,
@@ -474,8 +474,8 @@
 			"id": "#SD",
 			"name": "South Dakota",
 			"connections": {
-				"incoming": ["region2"],
-				"outgoing": ["region2"]
+				"incoming": ["North Dakota" , "Minnesota" , "Iowa" , "Nebraska" , "Wyoming" , "Montana"],
+				"outgoing": ["North Dakota" , "Minnesota" , "Iowa" , "Nebraska" , "Wyoming" , "Montana"]
 			},
 			"population": {
 				"adults": 554561,
@@ -486,8 +486,8 @@
 			"id": "#TN",
 			"name": "Tennessee",
 			"connections": {
-				"incoming": ["region2"],
-				"outgoing": ["region2"]
+				"incoming": ["Kentucky" , "Virginia" , "North Carolina" , "Georgia" , "Alabama" , "Mississippi" , "Arkansas" , "Missouri"],
+				"outgoing": ["Kentucky" , "Virginia" , "North Carolina" , "Georgia" , "Alabama" , "Mississippi" , "Arkansas" , "Missouri"]
 			},
 			"population": {
 				"adults": 4297773,
@@ -498,8 +498,8 @@
 			"id": "#TX",
 			"name": "Texas",
 			"connections": {
-				"incoming": ["region2"],
-				"outgoing": ["region2"]
+				"incoming": ["Oklahoma" , "Arkansas" , "Louisiana" , "New Mexico"],
+				"outgoing": ["Oklahoma" , "Arkansas" , "Louisiana" , "New Mexico"]
 			},
 			"population": {
 				"adults": 14999103,
@@ -510,8 +510,8 @@
 			"id": "#UT",
 			"name": "Utah",
 			"connections": {
-				"incoming": ["region2"],
-				"outgoing": ["region2"]
+				"incoming": ["Idaho" , "Wyoming" ,"Colorado" , "New Mexico" , "Arizona" , "Nevada"],
+				"outgoing": ["Idaho" , "Wyoming" ,"Colorado" , "New Mexico" , "Arizona" , "Nevada"]
 			},
 			"population": {
 				"adults": 1519580,
@@ -522,8 +522,8 @@
 			"id": "#VT",
 			"name": "Vermont",
 			"connections": {
-				"incoming": ["region2"],
-				"outgoing": ["region2"]
+				"incoming": ["New Hampshire" , "Massachusetts" , "New York"],
+				"outgoing": ["New Hampshire" , "Massachusetts" , "New York"]
 			},
 			"population": {
 				"adults": 461652,
@@ -534,8 +534,8 @@
 			"id": "#VA",
 			"name": "Virginia",
 			"connections": {
-				"incoming": ["region2"],
-				"outgoing": ["region2"]
+				"incoming": ["Maryland" , "District of Columbia" , "North Carolina" , "Tennessee" , "Kentucky" , "West Virginia"],
+				"outgoing": ["Maryland" , "District of Columbia" , "North Carolina" , "Tennessee" , "Kentucky" , "West Virginia"]
 			},
 			"population": {
 				"adults": 5349031,
@@ -546,8 +546,8 @@
 			"id": "#WA",
 			"name": "Washington",
 			"connections": {
-				"incoming": ["region2"],
-				"outgoing": ["region2"]
+				"incoming": ["Idaho" , "Oregon"],
+				"outgoing": ["Idaho" , "Oregon"]
 			},
 			"population": {
 				"adults": 4389611,
@@ -558,8 +558,8 @@
 			"id": "#WV",
 			"name": "West Virginia",
 			"connections": {
-				"incoming": ["region2"],
-				"outgoing": ["region2"]
+				"incoming": ["Pennsylvania" , "Maryland" , "Virginia" , "Kentucky" , "Ohio"],
+				"outgoing": ["Pennsylvania" , "Maryland" , "Virginia" , "Kentucky" , "Ohio"]
 			},
 			"population": {
 				"adults": 1408256,
@@ -570,8 +570,8 @@
 			"id": "#WI",
 			"name": "Wisconsin",
 			"connections": {
-				"incoming": ["region2"],
-				"outgoing": ["region2"]
+				"incoming": ["Michigan" , "Illinois" , "Iowa" , "Minnesota"],
+				"outgoing": ["Michigan" , "Illinois" , "Iowa" , "Minnesota"]
 			},
 			"population": {
 				"adults": 4001177,
@@ -582,8 +582,8 @@
 			"id": "#WY",
 			"name": "Wyoming",
 			"connections": {
-				"incoming": ["region2"],
-				"outgoing": ["region2"]
+				"incoming": ["Montana" , "South Dakota" , "Nebraska" , "Colorado" , "Utah" , "Idaho"],
+				"outgoing": ["Montana" , "South Dakota" , "Nebraska" , "Colorado" , "Utah" , "Idaho"]
 			},
 			"population": {
 				"adults": 366434,
