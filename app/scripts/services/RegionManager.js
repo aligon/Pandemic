@@ -1,5 +1,6 @@
 function Region(config) {
-	var i, incoming, outgoing, initialState;
+	var i, incoming, outgoing, initialState, outCount = 0,
+		CONNECTION_CONST = 0.05;
 
 	this.population = config.population;
 	this.id = config.id;
@@ -57,15 +58,30 @@ function Region(config) {
 			initialState.travelRates.incoming[incoming[i]] = 0;
 		}
 	}
-
+	outCount = outgoing.length;
 	for (i in outgoing) {
 		if (outgoing.hasOwnProperty(i)) {
-			this.connections.outgoing[outgoing[i]] = 0;
-			initialState.travelRates.outgoing[outgoing[i]] = 0;
+			this.connections.outgoing[outgoing[i]] = CONNECTION_CONST * (this.population.adults / outCount);
+			initialState.travelRates.outgoing[outgoing[i]] = CONNECTION_CONST * (this.population.adults / outCount);
 		}
 	}
 
 	this.states.push(initialState);
+
+	this.initConnections = function(getRegion) {
+		var me = this, i,
+			incoming = me.connections.incoming;
+
+		for (i in incoming) {
+			if (incoming.hasOwnProperty(i)) {
+				incoming[i] = CONNECTION_CONST * getRegion(i).getOutGoing();
+			}
+		}
+	};
+
+	this.getOutGoing = function() {
+		return CONNECTION_CONST * (this.population.adults / outCount);
+	};
 
 	this.addState = function(state) {
 		this.states.push(state);
@@ -98,6 +114,10 @@ PandemicApp.service('RegionManager', ['SocketManager', '$q', function(SocketMana
 				c++;
 			}
 		}
+
+		me.regions.forEach(function(region) {
+			region.initConnections(me.getRegion);
+		});
 
 		loadPromise.resolve(me.regions);
 	}, this);
