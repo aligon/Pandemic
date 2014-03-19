@@ -4,7 +4,6 @@ function Socket(s) {
 	this.socket = socket = s;
 
 	socket.on('shake', function(data) {
-		console.log('handshake received', data);
 		socket.emit('return-shake', data);
 	});
 
@@ -12,7 +11,6 @@ function Socket(s) {
 
 
 	this.addController = function(controller) {
-		console.log('Controller Added', controller.listeners);
 		var i, listeners = controller.listeners;
 
 		if (!this.socket) {
@@ -24,7 +22,6 @@ function Socket(s) {
 
 		for (i in listeners) {
 			if (listeners.hasOwnProperty(i)) {
-				console.log('Adding listener', i, controller[listeners[i]] || listener[i]);
 				if (typeof listeners[i] === 'string') {
 					this.addListener(i, controller[listeners[i]], controller);
 				} else {
@@ -51,7 +48,6 @@ function SocketManager() {
 	};
 
 	this.onConnect = function(s) {
-		console.log('New Socket Connection', controllers);
 		var i,
 			socket = new Socket(s);
 

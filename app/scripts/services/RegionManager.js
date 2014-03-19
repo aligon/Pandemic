@@ -77,6 +77,8 @@ function Region(config) {
 				incoming[i] = CONNECTION_CONST * getRegion(i).getOutGoing();
 			}
 		}
+
+		initialState.travelRates.incoming = incoming;
 	};
 
 	this.getOutGoing = function() {
@@ -122,19 +124,18 @@ PandemicApp.service('RegionManager', ['SocketManager', '$q', function(SocketMana
 		loadPromise.resolve(me.regions);
 	}, this);
 
-	socket.addListener('state-update', function(data) {
+	socket.emit('request-region-config');
+
+	me.applyState = function(data) {
 		var i, c;
 
 		for (i in data) {
-			if (data.hasOwnPropety(i)) {
+			if (data.hasOwnProperty(i)) {
 				c = names[i];
 				me.regions[c].addState(data[i]);
 			}
 		}
-
-	});
-
-	socket.emit('request-region-config');
+	};
 
 	me.onLoad = function(callback, scope) {
 		return loadPromise.promise;
@@ -148,11 +149,23 @@ PandemicApp.service('RegionManager', ['SocketManager', '$q', function(SocketMana
 		return me.regions[ids['#' + id]];
 	};
 
-	me.getStateForServer = function(i) {
+	me.getState = function(i) {
 		var state = {};
 
 		me.regions.forEach(function(region) {
 			state[region.name] = region.getState(i);
 		});
+
+		return state;
+	};
+
+	me.getLatestState = function() {
+		var state = {};
+
+		me.regions.forEach(function(region) {
+			state[region.name] = region.getLatestState();
+		});
+
+		return state;
 	};
 }]);

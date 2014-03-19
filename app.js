@@ -20,7 +20,7 @@ app.configure(function() {
 	app.use(express.bodyParser());
 	app.use(express.methodOverride());
 	app.use(express.session({ secret: 'keyboard cat' }));
-	app.use(express.static(path.join(__dirname, 'dist')));
+	app.use(express.static(path.join(__dirname, 'app')));
 });
 
 app.configure('developement', function() {
