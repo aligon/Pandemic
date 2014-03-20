@@ -87,6 +87,8 @@ function Region(config) {
 
 	this.addState = function(state) {
 		this.states.push(state);
+		this.latestState = state;
+		this.currentState = state;
 	};
 
 
@@ -94,9 +96,27 @@ function Region(config) {
 		return this.states[i];
 	};
 
+	this.resetToState = function(i) {
+		this.states = this.states.slice(0, i);
+		this.latestState = this.getLatestState();
+		this.currentState = this.latestState;
+	};
+
+	this.previewState = function(i) {
+		this.currentState = this.getState(i);
+	};
+
 	this.getLatestState = function() {
 		return this.states[this.states.length - 1];
 	};
+
+	this.getPercantage = function() {
+		var totalPop = this.population.adults + this.population.minors,
+			totalDec = this.currentState.deceased.adults + this.currentState.deceased.minors;
+	};
+
+	this.latestState = initialState;
+	this.currentState = initialState;
 }
 
 PandemicApp.service('RegionManager', ['SocketManager', '$q', function(SocketManager, $q) {
@@ -135,6 +155,20 @@ PandemicApp.service('RegionManager', ['SocketManager', '$q', function(SocketMana
 				me.regions[c].addState(data[i]);
 			}
 		}
+
+		if (me.updateMap) {
+			me.updateMap.call();
+		}
+	};
+
+	me.previewState = function(i) {
+		me.regions.forEach(function(region) {
+			region.previewState(i);
+		});
+
+		if (me.updateMap) {
+			me.updateMap.call();
+		}
 	};
 
 	me.onLoad = function(callback, scope) {
@@ -167,5 +201,9 @@ PandemicApp.service('RegionManager', ['SocketManager', '$q', function(SocketMana
 		});
 
 		return state;
+	};
+
+	me.addMap = function(updateFn) {
+		me.mapUpdateFn = updateFn;
 	};
 }]);

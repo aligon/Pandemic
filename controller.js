@@ -21,21 +21,19 @@ function Main() {
 		for (i in data) {
 			if (data.hasOwnProperty(i)) {
 				result[i] = {
-					'population-adults': data[i].population.adult,
-					'population-minors': data[i].population.minor,
-					'susceptible-adults': data[i].susceptible.adult + sus,
-					'susceptible-minors': data[i].susceptible.minor,
-					'exposed-adults': data[i].exposed.adult + exp,
-					'exposed-minors': data[i].exposed.minor,
-					'infected-adults': data[i].infected.adult,
-					'infected-minors': data[i].infected.minor,
-					'recovered-adults': data[i].recovered.adult,
-					'recovered-minors': data[i].recovered.minor,
-					'deceased-adults': data[i].deceased.adult,
-					'deceased-minors': data[i].deceased.minor,
-					'contact-adult-adult': data[i].contactRate.adult.adult,
-					'contact-adult-minor': data[i].contactRate.adult.minor,
-					'contact-minor-adult': data[i].contactRate.minor.adult,
+					'susceptible-adults': data[i].susceptible.adults,
+					'susceptible-minors': data[i].susceptible.minors,
+					'exposed-adults': data[i].exposed.adults,
+					'exposed-minors': data[i].exposed.minors,
+					'infected-adults': data[i].infected.adults,
+					'infected-minors': data[i].infected.minors,
+					'recovered-adults': data[i].recovered.adults,
+					'recovered-minors': data[i].recovered.minors,
+					'deceased-adults': data[i].deceased.adults,
+					'deceased-minors': data[i].deceased.minors,
+					'contact-adult-adult': data[i].contactRate.adults.adults,
+					'contact-adult-minor': data[i].contactRate.adults.minors,
+					'contact-minor-adult': data[i].contactRate.minors.adults,
 					'travelRates': data[i].travelRates
 				};
 			}
@@ -51,24 +49,24 @@ function Main() {
 			if (data.hasOwnProperty(i)) {
 				result[i] = {
 					susceptible: {
-						adults: data[i]['susceptible-adults'],
-						minors: data[i]['susceptible-minors']
+						adults: data[i]['susceptible-adults'] + 10,
+						minors: data[i]['susceptible-minors'] + 10
 					},
 					exposed: {
-						adults: data[i]['exposed-adults'],
-						minors: data[i]['exposed-minors']
+						adults: data[i]['exposed-adults'] + 10,
+						minors: data[i]['exposed-minors'] + 10
 					},
 					infected: {
-						adults: data[i]['infected-adults'],
-						minors: data[i]['infected-minors']
+						adults: data[i]['infected-adults'] + 10,
+						minors: data[i]['infected-minors'] + 10
 					},
-					recovererd: {
-						adults: data[i]['recovered-adults'],
-						minors: data[i]['recovered-minors']
+					recovered: {
+						adults: data[i]['recovered-adults'] + 10,
+						minors: data[i]['recovered-minors'] + 10
 					},
 					deceased: {
-						adults: data[i]['deceased-adults'],
-						minors: data[i]['deceased-minors']
+						adults: data[i]['deceased-adults'] + 10,
+						minors: data[i]['deceased-minors'] + 10
 					}
 				};
 			}
@@ -86,7 +84,7 @@ function Main() {
 
 			function getRegionPerc(name, key) {
 				var region = data[name],
-					sub = region[key + '-adult'],
+					sub = region[key + '-adults'],
 					total = region['susceptible-adults'] + region['exposed-adults'];
 
 				return sub / total;
@@ -100,7 +98,7 @@ function Main() {
 			}
 
 			for (i in region.travelRates.outgoing) {
-				if (region.travelRates.outgiong.hasOwnProperty(i)) {
+				if (region.travelRates.outgoing.hasOwnProperty(i)) {
 					sus -= region.travelRates.outgoing[i] * getRegionPerc(i, 'susceptible');
 					exp -= region.travelRates.outgoing[i] * getRegionPerc(i, 'exposed');
 				}
@@ -113,10 +111,9 @@ function Main() {
 		}
 
 		function maybeFinish(json) {
-			var names;
-
-			for (names in json) {
-				if (json.hasOwnProperty(names)) {
+			var name;
+			for (name in json) {
+				if (json.hasOwnProperty(name) && result[name]) {
 					result[name]['susceptible-adults'] = json[name]['susceptible-adults'];
 					result[name]['susceptible-minors'] = json[name]['susceptible-minors'];
 					result[name]['exposed-adults'] = json[name]['exposed-adults'];
@@ -141,12 +138,12 @@ function Main() {
 			var inputFile = 'state-input-' + waiting + '.json',
 				outputFile = 'state-output-' + waiting + '.json';
 
-			fs.write(input, JSON.stringify(json), function(err) {
+			fs.writeFile(inputFile, JSON.stringify(json), function(err) {
 				if (err) {
 					console.error('failed to write state to file wiping c drive');
 				}
 
-				var process = spawn('./pandemic.exe', [inputFile, outputFile]);
+				var process = spawn('cp', [inputFile, outputFile]);
 
 				process.on('close', function(code) {
 					console.log('Exe closed with code', code);
@@ -192,14 +189,15 @@ function Main() {
 	}
 
 	this.startUpdate = function(state) {
+		var socket = this.socket;
 		state.regions = parseStateFromClient(state.regions);
 
 		function callback(regions) {
-			socket.emit('update-state', parseStateFromClient(regions));
+			socket.emit('state-update', parseStateForClient(regions));
 
 			if (!stopFlag) {
 				state.regions = regions;
-				generateNext(state, callback);
+				//generateNext(state, callback);
 			} else {
 				stopFlag = false;
 			}

@@ -37,10 +37,30 @@ body {width: 100%; height: 100%; padding-top: 70px; background-color: #D6D6D6}
 
 	.map-region-preview{
 		position: absolute;
-		width: 100px;
-		height: 50px;
+		width: 305px;
 		border: 1px solid #d3d3d3;
 		background: white;
+		.name{
+			display: block;
+			color: white;
+			background-color: #00005E;
+		}
+
+		.map-preview-item{
+			width: 150px;
+			float: left;
+
+			.header-label{
+				font-size: 1.1em;
+				font-weight: 600;
+			}
+
+			.label{
+				font-size: 1em;
+				display: inline;
+				color: black;
+			}
+		}
 	}
 }
 
