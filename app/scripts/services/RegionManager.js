@@ -86,6 +86,16 @@ function Region(config) {
 	};
 
 	this.addState = function(state) {
+		var latest = this.getLatestState();
+
+		if (!state.contactRate) {
+			state.contactRate = latest.contactRate;
+		}
+
+		if (!state.travelRates) {
+			state.travelRates = latest.travelRates;
+		}
+
 		this.states.push(state);
 		this.latestState = state;
 		this.currentState = state;

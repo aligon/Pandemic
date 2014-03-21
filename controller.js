@@ -146,7 +146,6 @@ function Main() {
 				var process = spawn('cp', [inputFile, outputFile]);
 
 				process.on('close', function(code) {
-					console.log('Exe closed with code', code);
 					fs.readFile(outputFile, function(err, data) {
 						if (err) {
 							console.error('failed to read stat output file');
@@ -192,14 +191,14 @@ function Main() {
 		var socket = this.socket;
 		state.regions = parseStateFromClient(state.regions);
 
+		stopFlag = false;
+
 		function callback(regions) {
 			socket.emit('state-update', parseStateForClient(regions));
 
 			if (!stopFlag) {
 				state.regions = regions;
-				//generateNext(state, callback);
-			} else {
-				stopFlag = false;
+				generateNext(state, callback);
 			}
 		}
 
