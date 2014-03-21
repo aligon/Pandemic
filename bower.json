@@ -13,10 +13,19 @@
     "angular-bootstrap": "~0.10.0",
     "bootstrap": "~3.1.1",
     "font-awesome": "~4.0.3",
-    "ng-tags-input": "~1.1.1"
+    "ng-tags-input": "~1.1.1",
+    "d3": "~3.4.3",
+    "nvd3": "~1.1.15-beta",
+    "angularjs-nvd3-directives": "~0.0.5-beta",
+    "angles": "*"
   },
   "devDependencies": {
     "angular-mocks": "1.2.6",
     "angular-scenario": "1.2.6"
+  },
+  "resolutions": {
+    "d3": "~3.4.3",
+    "angular": "1.2.6",
+    "nvd3": "~1.1.15-beta"
   }
 }

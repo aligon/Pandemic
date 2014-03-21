@@ -6,7 +6,10 @@ PandemicApp.controller('MainCtrl', ['$scope', 'RegionManager', 'SocketManager', 
 
 		RegionManager.onLoad().then(function(regions) {
 			$scope.regionsLoaded = true;
-			WatchManager.watch.push(RegionManager.getRegion('Oklahoma'));
+			WatchManager.addRegion('Oklahoma');
+			WatchManager.addRegion('Texas');
+			WatchManager.addRegion('Kansas');
+			WatchManager.addRegion('Colorado');
 			StateManager.play();
 		}).catch (function(reason) {
 			console.error('Failed to load regions:', reason);
@@ -18,5 +21,10 @@ PandemicApp.controller('MainCtrl', ['$scope', 'RegionManager', 'SocketManager', 
 		$scope.regions = RegionManager.regions;
 
 		$scope.Watch = WatchManager.watch;
+
+		WatchManager.addUpdate(function(watch) {
+			$scope.Watch = watch;
+			$scope.$apply();
+		});
 	}
 ]);

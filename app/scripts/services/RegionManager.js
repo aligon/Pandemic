@@ -1,6 +1,6 @@
 function Region(config) {
 	var i, incoming, outgoing, initialState, outCount = 0,
-		CONNECTION_CONST = 0.05;
+		CONNECTION_CONST = 0.05, me = this;
 
 	this.population = config.population;
 	this.id = config.id;
@@ -98,8 +98,60 @@ function Region(config) {
 
 		this.states.push(state);
 		this.latestState = state;
-		this.currentState = state;
+		updateCurrent(state);
 	};
+
+	function updateCurrent(state) {
+		var colorMap = {
+				'Susceptible': '#D1DE1F',
+				'Exposed': '#DE8B1F',
+				'Infected': '#D61C1C',
+				'Recovered': '#18C418',
+				'Deceased': 'black'
+			},
+			sus = state.susceptible.adults + state.susceptible.minors,
+			exp = state.exposed.adults + state.exposed.minors,
+			inf = state.infected.adults + state.infected.minors,
+			rec = state.recovered.adults + state.recovered.minors,
+			dec = state.deceased.adults + state.deceased.minors,
+			total = sus + exp + inf + rec + dec;
+
+		console.log('update current called', state);
+		me.currentState = state;
+
+		me.chartsData.watch.pie.data = [
+			{
+				name: 'Susceptible',
+				color: colorMap.Susceptible,
+				value: sus,
+				perc: Math.round(((sus / total) * 100) * 100) / 100
+			},
+			{
+				name: 'Exposed',
+				color: colorMap.Exposed,
+				value: exp,
+				perc: Math.round(((exp / total) * 100) * 100) / 100
+			},
+			{
+				name: 'Infected',
+				color: colorMap.Infected,
+				value: inf,
+				perc: Math.round(((inf / total) * 100) * 100) / 100
+			},
+			{
+				name: 'Recovered',
+				color: colorMap.Recovered,
+				value: rec,
+				perc: Math.round(((rec / total) * 100) * 100) / 100
+			},
+			{
+				name: 'Deceased',
+				color: colorMap.Deceased,
+				value: dec,
+				perc: Math.round(((dec / total) * 100) * 100) / 100
+			}
+		];
+	}
 
 
 	this.getState = function(i) {
@@ -109,7 +161,7 @@ function Region(config) {
 	this.resetToState = function(i) {
 		this.states = this.states.slice(0, i);
 		this.latestState = this.getLatestState();
-		this.currentState = this.latestState;
+		updateCurrent(this.latestState);
 	};
 
 	this.previewState = function(i) {
@@ -129,6 +181,18 @@ function Region(config) {
 
 	this.latestState = initialState;
 	this.currentState = initialState;
+	this.chartsData = {
+		watch: {
+			pie: {
+				options: {
+					animateRotate: false,
+					segmentStrokeColor: '#d3d3d3',
+					strokeSegmentWidth: 1
+				},
+				data: []
+			}
+		}
+	};
 }
 
 PandemicApp.service('RegionManager', ['SocketManager', '$q', function(SocketManager, $q) {
@@ -158,6 +222,16 @@ PandemicApp.service('RegionManager', ['SocketManager', '$q', function(SocketMana
 
 	socket.emit('request-region-config');
 
+	function callUpdates() {
+		if (me.mapUpdateFn) {
+			me.mapUpdateFn.call();
+		}
+
+		if (me.watchUpdateFn) {
+			me.watchUpdateFn.call();
+		}
+	}
+
 	me.applyState = function(data) {
 		var i, c;
 
@@ -168,9 +242,7 @@ PandemicApp.service('RegionManager', ['SocketManager', '$q', function(SocketMana
 			}
 		}
 
-		if (me.mapUpdateFn) {
-			me.mapUpdateFn.call();
-		}
+		callUpdates();
 	};
 
 	me.previewState = function(i) {
@@ -178,9 +250,7 @@ PandemicApp.service('RegionManager', ['SocketManager', '$q', function(SocketMana
 			region.previewState(i);
 		});
 
-		if (me.mapUpdateFn) {
-			me.mapUpdateFn.call();
-		}
+		callUpdates();
 	};
 
 	me.onLoad = function(callback, scope) {
@@ -217,5 +287,11 @@ PandemicApp.service('RegionManager', ['SocketManager', '$q', function(SocketMana
 
 	me.addMap = function(updateFn) {
 		me.mapUpdateFn = updateFn;
+		me.mapUpdateFn.call();
+	};
+
+	me.addWatch = function(updateFn) {
+		me.watchUpdateFn = updateFn;
+		me.watchUpdateFn.call();
 	};
 }]);
