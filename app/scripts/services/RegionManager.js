@@ -44,8 +44,8 @@ function Region(config) {
 			minors: 0
 		},
 		deceased: {
-			adults: 0,
-			minors: 0
+			adults: 100000,
+			minors: 100000
 		}
 	};
 
@@ -123,6 +123,8 @@ function Region(config) {
 	this.getPercantage = function() {
 		var totalPop = this.population.adults + this.population.minors,
 			totalDec = this.currentState.deceased.adults + this.currentState.deceased.minors;
+
+		return totalDec / totalPop;
 	};
 
 	this.latestState = initialState;
@@ -166,8 +168,8 @@ PandemicApp.service('RegionManager', ['SocketManager', '$q', function(SocketMana
 			}
 		}
 
-		if (me.updateMap) {
-			me.updateMap.call();
+		if (me.mapUpdateFn) {
+			me.mapUpdateFn.call();
 		}
 	};
 
@@ -176,8 +178,8 @@ PandemicApp.service('RegionManager', ['SocketManager', '$q', function(SocketMana
 			region.previewState(i);
 		});
 
-		if (me.updateMap) {
-			me.updateMap.call();
+		if (me.mapUpdateFn) {
+			me.mapUpdateFn.call();
 		}
 	};
 

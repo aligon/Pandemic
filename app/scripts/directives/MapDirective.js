@@ -36,16 +36,11 @@ PandemicApp.directive('regionsMap', ['RegionManager', function(RegionManager) {
 	function generateUpdateFunction(map, preview) {
 
 		return function() {
-
-			function fillInPreview(region) {
-
-			}
-
 			RegionManager.regions.forEach(function(region) {
 				var svg = $(region.id, map),
 					perc = region.getPercantage();
 
-				svg.css('fill', 'rgba(212,66,66,' + prec + ')');
+				svg.css('fill', 'rgba(212,66,66,' + perc + ')');
 
 				if (currentRegion === region.name) {
 					fillInPreview(region);
@@ -80,11 +75,13 @@ PandemicApp.directive('regionsMap', ['RegionManager', function(RegionManager) {
 			adultDec = $('.map-region-preview .adult-dec');
 			minorDec = $('.map-region-preview .minor-dec');
 
-			RegionManager.addMap(generateUpdateFunction());
+			RegionManager.addMap(generateUpdateFunction(map.contentDocument.documentElement, preview));
 
 			map.addEventListener('load', function() {
 				var currentId,
 					svgRoot = map.contentDocument.documentElement; //get the svg once it loads
+
+				RegionManager.addMap(generateUpdateFunction(svgRoot, preview));
 
 				$('.state', svgRoot).on('mouseover', function(e) {
 					var el = $(this), id = el.attr('id'),

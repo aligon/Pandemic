@@ -104,8 +104,8 @@ function Main() {
 				}
 			}
 
-			region['susceptible-adults'] = region['susceptible-adults'] + sus;
-			region['exposed-adults'] = region['exposed-adults'] + exp;
+			region['susceptible-adults'] = Math.round(region['susceptible-adults'] + sus);
+			region['exposed-adults'] = Math.round(region['exposed-adults'] + exp + 10);
 
 			return region;
 		}
@@ -198,7 +198,10 @@ function Main() {
 
 			if (!stopFlag) {
 				state.regions = regions;
-				generateNext(state, callback);
+				generateNext({
+					disease: state.disease,
+					regions: regions
+				}, callback);
 			}
 		}
 
