@@ -10,7 +10,7 @@ PandemicApp.controller('MainCtrl', ['$scope', 'RegionManager', 'SocketManager', 
 			WatchManager.addRegion('Texas');
 			WatchManager.addRegion('Kansas');
 			WatchManager.addRegion('Colorado');
-			StateManager.play();
+			//StateManager.play();
 		}).catch (function(reason) {
 			console.error('Failed to load regions:', reason);
 		});
@@ -23,6 +23,7 @@ PandemicApp.controller('MainCtrl', ['$scope', 'RegionManager', 'SocketManager', 
 		$scope.Watch = WatchManager.watch;
 
 		WatchManager.addUpdate(function(watch) {
+			console.log('Watch updated', watch);
 			$scope.Watch = watch;
 
 			if (!$scope.$$phase) {

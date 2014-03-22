@@ -98,3 +98,49 @@ body {width: 100%; height: 100%; padding-top: 70px; background-color: #D6D6D6}
 	}
 }
 
+.controls-container {
+	height: 40px;
+
+	.controls {
+		width: 200px;
+		float: left;
+
+		.control {
+			float: left;
+			width: 40px;
+			line-height: 40px;
+			font-size: 1.1em;
+			text-align: center;
+			background: #ebebeb;
+
+			&.play-pause {
+				&.pause {
+					.fa-play {
+						display: inline;
+					}
+
+					.fa-pause {
+						display: none;
+					}
+				}
+
+				&.play {
+					.fa-play {
+						display: none;
+					}
+
+					.fa-pause {
+						display: inline;
+					}
+				}
+			}
+
+			&.fast-fast-foward {
+				.second {
+					margin-left: -2px;
+				}
+			}
+		}
+	}
+}
+

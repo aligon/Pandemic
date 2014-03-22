@@ -4,7 +4,6 @@ var PandemicApp = angular.module('PandemicApp', [
 	'ngSanitize',
 	'ngRoute',
 	'ngTagsInput',
-	'nvd3ChartDirectives',
 	'angles'
 ]);
 

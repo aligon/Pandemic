@@ -116,7 +116,6 @@ function Region(config) {
 			dec = state.deceased.adults + state.deceased.minors,
 			total = sus + exp + inf + rec + dec;
 
-		console.log('update current called', state);
 		me.currentState = state;
 
 		me.chartsData.watch.pie.data = [
@@ -180,7 +179,6 @@ function Region(config) {
 	};
 
 	this.latestState = initialState;
-	this.currentState = initialState;
 	this.chartsData = {
 		watch: {
 			pie: {
@@ -193,6 +191,8 @@ function Region(config) {
 			}
 		}
 	};
+
+	updateCurrent(initialState);
 }
 
 PandemicApp.service('RegionManager', ['SocketManager', '$q', function(SocketManager, $q) {
@@ -218,6 +218,8 @@ PandemicApp.service('RegionManager', ['SocketManager', '$q', function(SocketMana
 		});
 
 		loadPromise.resolve(me.regions);
+
+		callUpdates();
 	}, this);
 
 	socket.emit('request-region-config');
