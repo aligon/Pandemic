@@ -104,8 +104,11 @@ function Main() {
 				}
 			}
 
-			region['susceptible-adults'] = Math.round(region['susceptible-adults'] + sus);
-			region['exposed-adults'] = Math.round(region['exposed-adults'] + exp + 10);
+			sus = Math.max(Math.round(region['susceptible-adults'] + sus), 0);
+			exp = Math.max(Math.round(region['exposed-adults'] + exp + 10), 0);
+
+			region['susceptible-adults'] = sus;
+			region['exposed-adults'] = exp;
 
 			return region;
 		}

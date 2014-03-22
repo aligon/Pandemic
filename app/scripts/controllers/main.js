@@ -1,6 +1,6 @@
 PandemicApp.controller('MainCtrl', ['$scope', 'RegionManager', 'SocketManager', 'DiseaseManager', 'WatchManager', 'StateManager',
 	function($scope, RegionManager, SocketManager, DiseaseManager, WatchManager, StateManager) {
-		var socket = SocketManager.getConnection();
+		var socket = SocketManager.getConnection(), already = false;
 
 		$scope.regionsLoaded = false;
 
@@ -24,7 +24,10 @@ PandemicApp.controller('MainCtrl', ['$scope', 'RegionManager', 'SocketManager', 
 
 		WatchManager.addUpdate(function(watch) {
 			$scope.Watch = watch;
-			$scope.$apply();
+
+			if (!$scope.$$phase) {
+				$scope.$apply();
+			}
 		});
 	}
 ]);
