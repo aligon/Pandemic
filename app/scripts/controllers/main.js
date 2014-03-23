@@ -1,5 +1,18 @@
-PandemicApp.controller('MainCtrl', ['$scope', 'RegionManager', 'SocketManager', 'DiseaseManager', 'WatchManager', 'StateManager',
-	function($scope, RegionManager, SocketManager, DiseaseManager, WatchManager, StateManager) {
+PandemicApp.controller('DiseaseCtrl', [
+	'$scope', '$modalInstance', 'DiseaseManager',
+	function($scope, $modalInstance, DiseaseManager) {
+		$scope.Disease = DiseaseManager;
+		$scope.ok = function() {
+			$modalInstance.close();
+		};
+	}
+]);
+
+PandemicApp.controller('MainCtrl', [
+	'$scope', 'RegionManager', 'SocketManager',
+	'DiseaseManager', 'WatchManager', 'StateManager',
+	'$modal',
+	function($scope, RegionManager, SocketManager, DiseaseManager, WatchManager, StateManager, $modal) {
 		var socket = SocketManager.getConnection(), already = false;
 
 		$scope.regionsLoaded = false;
@@ -15,20 +28,28 @@ PandemicApp.controller('MainCtrl', ['$scope', 'RegionManager', 'SocketManager', 
 			console.error('Failed to load regions:', reason);
 		});
 
-
-		$scope.Disease = DiseaseManager;
-
 		$scope.regions = RegionManager.regions;
 
 		$scope.Watch = WatchManager.watch;
 
 		WatchManager.addUpdate(function(watch) {
-			console.log('Watch updated', watch);
 			$scope.Watch = watch;
 
 			if (!$scope.$$phase) {
 				$scope.$apply();
 			}
 		});
+
+		$scope.openDisease = function() {
+			var modelInstance = $modal.open({
+				templateUrl: 'views/Disease.html',
+				controller: 'DiseaseCtrl',
+				resolve: {
+					DiseaseManager: function() {
+						return DiseaseManager;
+					}
+				}
+			});
+		};
 	}
 ]);

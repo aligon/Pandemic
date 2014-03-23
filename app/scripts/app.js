@@ -4,7 +4,8 @@ var PandemicApp = angular.module('PandemicApp', [
 	'ngSanitize',
 	'ngRoute',
 	'ngTagsInput',
-	'angles'
+	'angles',
+	'ui.bootstrap'
 ]);
 
 PandemicApp.config(['$routeProvider', function($routeProvider) {
