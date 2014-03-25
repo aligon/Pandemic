@@ -299,7 +299,7 @@
 
 ;Gets the key by calling get-str using the quote mark as delimiter
 (defun get-key (chrs)
-   (chrs->str (get-str chrs nil #\')))
+   (chrs->str (get-str chrs nil #\")))
 
 ;Gets the value by calling get-str using the comma as delimiter
 (defun get-val (chrs)
@@ -315,7 +315,7 @@
  ; Returns a list where the first element is the tree and the second is the char length of the tree
 (defun val-tree (chrs tr)
    (if (consp chrs)
-   	(if (equal (car chrs) #\')
+   	(if (equal (car chrs) #\")
         (if (equal (cadr chrs) #\:)
             (val-tree (cddr chrs) tr)
       	  (let* ((key (get-key (cdr chrs)))
@@ -368,17 +368,36 @@
        (let* ((value (avl-get tr (car keys)))) ; Value should be either a number or a tree
              (if (natp value) 
                  (if (consp (cdr keys)) ; If the value is a number
-                     (append (list #\') (str->chrs (car keys))  (list #\' #\:) (int->chrs value) '(#\,) (deparse-r (cdr keys) tr)) ; Add ("<key>":<value>,) to the front of the rest of the expression
-                     (append (list #\') (str->chrs (car keys))  (list #\' #\:) (int->chrs value) (deparse-r (cdr keys) tr))) ; Add ("<key>":<value>) to the front of the rest of the expression
+                     (append (list #\") (str->chrs (car keys))  (list #\" #\:) (int->chrs value) '(#\,) (deparse-r (cdr keys) tr)) ; Add ("<key>":<value>,) to the front of the rest of the expression
+                     (append (list #\") (str->chrs (car keys))  (list #\" #\:) (int->chrs value) (deparse-r (cdr keys) tr))) ; Add ("<key>":<value>) to the front of the rest of the expression
                  (if (consp (cdr keys)) ; If the value is a tree
-                     (append (list #\') (str->chrs (car keys)) (list #\' #\: #\{) (deparse-r (keys value) value) '(#\,) (deparse-r (cdr keys) tr)) ; Add ("<key>":{<tree representation>},) to the rest of the expression
-                     (append (list #\') (str->chrs (car keys)) (list #\' #\: #\{) (deparse-r (keys value) value) (deparse-r (cdr keys) tr))))); Add ("<key>":{<tree representation>}) to the rest of the expression
+                     (append (list #\") (str->chrs (car keys)) (list #\" #\: #\{) (deparse-r (keys value) value) '(#\,) (deparse-r (cdr keys) tr)) ; Add ("<key>":{<tree representation>},) to the rest of the expression
+                     (append (list #\") (str->chrs (car keys)) (list #\" #\: #\{) (deparse-r (keys value) value) (deparse-r (cdr keys) tr))))); Add ("<key>":{<tree representation>}) to the rest of the expression
        (list #\})));If there are noe more values in keys return } signifying the end of the tree
    
 ; Takes in an AVL-tree and returns the JSON string representing the tree
 (defun deparse (tr) 
    (chrs->str (cons #\{ (deparse-r (keys tr) tr ))))
 
+;###################################################################################
+; Input Output
+
+(defun in-out (f-in f-out state)
+    (mv-let (input-string error-open state)
+           (file->string f-in state)
+      (if error-open 
+          (mv error-open state)
+          (mv-let (error-close state)
+                  (string-list->file f-out   (list (deparse (parse (str->chrs input-string)))) state)
+             (if error-close
+                 (mv error-close state)
+                 (mv (string-append "input file: "
+                       (string-append f-in
+					(string-append ", output file: " f-out)))
+                     state))))))   
+       
+(defun main (state)
+   (in-out "input.txt" "output.txt" state))
 
 
 ;###################################################################################
@@ -388,6 +407,9 @@
    (if (or (equal chr #\0)(equal chr #\1)(equal chr #\2)(equal chr #\3)(equal chr #\4)(equal chr #\5)(equal chr #\6)(equal chr #\7)(equal chr #\8)(equal chr #\9))
        t
        nil))
+
+
+   
        
 
    
