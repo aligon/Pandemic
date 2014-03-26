@@ -61,8 +61,8 @@ function Region(config) {
 	outCount = outgoing.length;
 	for (i in outgoing) {
 		if (outgoing.hasOwnProperty(i)) {
-			this.connections.outgoing[outgoing[i]] = CONNECTION_CONST * (this.population.adults / outCount);
-			initialState.travelRates.outgoing[outgoing[i]] = CONNECTION_CONST * (this.population.adults / outCount);
+			this.connections.outgoing[outgoing[i]] = Math.round(CONNECTION_CONST * (this.population.adults / outCount));
+			initialState.travelRates.outgoing[outgoing[i]] = Math.round(CONNECTION_CONST * (this.population.adults / outCount));
 		}
 	}
 
@@ -74,7 +74,7 @@ function Region(config) {
 
 		for (i in incoming) {
 			if (incoming.hasOwnProperty(i)) {
-				incoming[i] = CONNECTION_CONST * getRegion(i).getOutGoing();
+				incoming[i] = Math.round(getRegion(i).getOutGoing());
 			}
 		}
 

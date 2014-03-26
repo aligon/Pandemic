@@ -8,6 +8,17 @@ PandemicApp.controller('DiseaseCtrl', [
 	}
 ]);
 
+PandemicApp.controller('RegionCtrl', [
+	'$scope', '$modalInstance', 'Region',
+	function($scope, $modalInstance, Region) {
+		$scope.region = Region;
+		$scope.ok = function() {
+			console.log(Region);
+			$modalInstance.close();
+		};
+	}
+]);
+
 PandemicApp.controller('MainCtrl', [
 	'$scope', 'RegionManager', 'SocketManager',
 	'DiseaseManager', 'WatchManager', 'StateManager',
@@ -50,6 +61,18 @@ PandemicApp.controller('MainCtrl', [
 					}
 				}
 			});
+		};
+
+		$scope.openRegion = function(name) {
+			var modelInstance = $modal.open({
+					templateUrl: 'views/RegionPopup.html',
+					controller: 'RegionCtrl',
+					resolve: {
+						Region: function() {
+							return RegionManager.getRegion(name);
+						}
+					}
+				});
 		};
 	}
 ]);

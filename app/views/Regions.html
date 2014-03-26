@@ -3,6 +3,6 @@
 		<auto-complete source='getRegion($query)' min-length='1'></auto-complete>
 	</tags-input>
 	<div class='col-md-3' ng-repeat='region in regions | stateFilter:search'>
-		<span>{{region.name}}</span>
+		<span ng-click='openRegion(region.name)'>{{region.name}}</span>
 	</div>
 </div>

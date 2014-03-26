@@ -1,0 +1,41 @@
+<div>
+	<div class='modal-header'>
+		<h3>{{region.name}}</h3>
+	</div>
+	<div class = 'modal-body'>
+		<tabset justified='true'>
+			<tab heading='Configuration'>
+				<h4>Travel Rates (People/Day)</h4>
+				<div class='travel-config'>
+					<div class='pull-left'>
+						<h5>Incoming:</h5>
+						<div class='travel-container' ng-repeat='(name,incoming) in region.currentState.travelRates.incoming'>
+							<label class='travel-label'>{{name}}</label>
+							<input class='travel-input' type='number' ng-model='region.currentState.travelRates.incoming[name]' value='{{incoming}}'/>
+						</div>
+					</div>
+					<div class='pull-right'>
+						<h5>Outgoing:</h5>
+						<div class='travel-container' ng-repeat='(name,outgoing) in region.currentState.travelRates.outgoing'>
+							<label class='travel-label'>{{name}} </label>
+							<input class='travel-input' type='number' ng-model='region.currentState.travelRates.outgoing[name]' value='{{outgoing}}'/>
+						</div>
+					</div>
+				</div>
+				<h4>Contact Rates (People/Day)</h4>
+				<label>Adult to Adult</label>
+				<input type='number' ng-model='region.currentState.contactRates.adult.adult' value='{{region.currentState.contactRate.adults.adults}}' />
+				<label>Adult to Minor</label>
+				<input type='number' ng-model='region.currentState.contactRates.adult.minor' value='{{region.currentState.contactRate.adults.minors}}'/>
+				<label>Minor to Minor</label>
+				<input type='number' ng-model='region.currentState.contactRates.minor.minor' value='{{region.currentState.contactRate.minors.minors}}' />
+			</tab>
+			<tab heading='Report'>
+				<span>Report</span>
+			</tab>
+		</tabset>
+	</div>
+	<div class='modal-footer'>
+		<button class="btn btn-primary" ng-click="ok()">Close</button>
+	</div>
+</div>

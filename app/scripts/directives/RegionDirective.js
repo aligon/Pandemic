@@ -2,7 +2,8 @@ PandemicApp.directive('regionList', ['RegionManager', '$q', function(RegionManag
 	return {
 		templateUrl: 'views/Regions.html',
 		scope: {
-			regions: '='
+			regions: '=',
+			openRegion: '='
 		},
 		link: function(scope, element) {
 			scope.getRegion = function(s) {
