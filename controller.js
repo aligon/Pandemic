@@ -85,7 +85,7 @@ function Main() {
 			function getRegionPerc(name, key) {
 				var region = data[name],
 					sub = region[key + '-adults'],
-					total = region['susceptible-adults'] + region['exposed-adults'];
+					total = region['susceptible-adults'] + region['exposed-adults'] + region['infected-adults'];
 
 				return sub / total;
 			}
@@ -193,6 +193,7 @@ function Main() {
 	this.startUpdate = function(state) {
 		var socket = this.socket;
 		state.regions = parseStateFromClient(state.regions);
+		//console.log(state.regions);
 
 		stopFlag = false;
 
@@ -201,6 +202,7 @@ function Main() {
 
 			if (!stopFlag) {
 				state.regions = regions;
+				//console.log(state.regions);
 				generateNext({
 					disease: state.disease,
 					regions: regions

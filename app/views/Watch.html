@@ -1,0 +1,26 @@
+<div class='item-container watch-container'>
+	<div class='item-header'>
+		<span class='header-text'>Watch</span>
+	</div>
+	<div class='watch-region' ng-repeat='region in watch'>
+		<span class='watch-region-title'>{{region.name}}</span>
+		<span class='remove-watch' ng-click='removeWatch(region.name)'>X</span>
+		<canvas 
+			class='region-chart'
+			piechart
+			options='region.chartsData.watch.pie.options'
+			data='region.chartsData.watch.pie.data'
+			width='100'
+			height='100'
+		></canvas>
+		<div class='region-keys'>
+			<div ng-repeat='d in region.chartsData.watch.pie.data'>
+				<div class='region-key' ng-style='{background: d.color}'>
+					<span class='region-key-name'>{{d.name}}</span>
+					<span class='region-key-value'>{{d.value}}</span>
+					<span class='region-key-perc'>{{d.perc}}%</span>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
