@@ -1,2 +1,22 @@
 {'Disease':{'Mortality Rate':23,'Recovery Rate':89},'Region1':{'Adult Pop':3432,'Child Pop':2343,'Adult Infected':23,'Child Infected':234},'Region2':{'Adult Pop':0987,'Child Pop':234}}
 
+
+
+
+(2 'Region1'
+   (3 'Adult Pop'
+      3432 (1 'Adult Infected' 23 NIL NIL)
+      (2 'Child Pop'
+         2343 (1 'Child Infected' 234 NIL NIL)
+         NIL))
+   (1 'Disease'
+      (2 'Mortality Rate'
+         23 NIL (1 'Recovery Rate' 89 NIL NIL))
+      NIL NIL)
+   (1 'Region2'
+      (2 'Adult Pop'
+         987 NIL (1 'Child Pop' 234 NIL NIL))
+      NIL NIL))
+
+
+{'Disease':34,'Region1':{'Adult Pop':3432,'Child Pop':2343,'Adult Infected':23,'Child Infected':234},'Region2':{'Adult Pop':0987,'Child Pop':234}}
