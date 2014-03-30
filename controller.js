@@ -33,7 +33,7 @@ function Main() {
 					'deceased-minors': data[i].deceased.minors,
 					'contact-adult-adult': data[i].contactRate.adults.adults,
 					'contact-adult-minor': data[i].contactRate.adults.minors,
-					'contact-minor-adult': data[i].contactRate.minors.adults,
+					'contact-minor-minor': data[i].contactRate.minors.minors,
 					'travelRates': data[i].travelRates
 				};
 			}

@@ -1,8 +1,11 @@
-<div class='region-contaner'>
+<div class='region-container'>
 	<tags-input ng-model='search.name' add-on-space='true'>
 		<auto-complete source='getRegion($query)' min-length='1'></auto-complete>
 	</tags-input>
-	<div class='col-md-3' ng-repeat='region in regions | stateFilter:search'>
-		<span ng-click='openRegion(region.name)'>{{region.name}}</span>
+	<div class='col-md-2 region' ng-repeat='region in regions | stateFilter:search'>
+		<div class='region-name' ng-click='openRegion(region.name)'>{{region.name}}</div>
+		<div class='region-watch' ng-click='addWatch(region.name)'>
+			<i class="fa fa-eye"></i>
+		</div>
 	</div>
 </div>

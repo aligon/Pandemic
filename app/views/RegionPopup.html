@@ -31,7 +31,44 @@
 				<input type='number' ng-model='region.currentState.contactRates.minor.minor' value='{{region.currentState.contactRate.minors.minors}}' />
 			</tab>
 			<tab heading='Report'>
-				<span>Report</span>
+				<h4>Population</h4>
+				<div class='pop-container'>
+					<div class='pop-item {{value.cls}}' ng-repeat='(key, value) in region.chartsData.popup.population'>
+						<h5>{{value.title}}</h5>
+						<div class='report-legend'>
+							<div ng-repeat='d in value.data'>
+								<div class='report-key' ng-style='{background: d.color}'>
+									<span class='key-name'>{{d.name}}</span>
+									<span class='key-value'>{{d.value}}</span>
+									<span class='key-perc'>{{d.perc}}%</span>
+								</div>
+							</div>
+						</div>
+						<canvas 
+							class='report-chart'
+							piechart
+							options='value.options'
+							data='value.data'
+							width='100'
+							height='100'
+						></canvas>
+					</div>
+				</div>
+				<h4>Trend</h4>
+				<div class='trend-container'>
+					<div class='trend-item {{value.cls}}' ng-repeat='(key, value) in region.chartsData.popup.trends'>
+						<h5>{{value.title}}</h5>
+						<canvas
+							class='report-chart'
+							linechart
+							options='value.options'
+							data='value'
+							width='500'
+							height='500'
+						>
+						</canvas>
+					</div>
+				</div>
 			</tab>
 		</tabset>
 	</div>

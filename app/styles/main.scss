@@ -7,7 +7,6 @@ body {width: 100%; height: 100%; padding-top: 70px; background-color: #D6D6D6}
 	position: relative;
 	padding-top: 30px;
 	position: relative;
-	border: 1px solid #d3d3d3;
 
 
 	.item-header {
@@ -98,6 +97,33 @@ body {width: 100%; height: 100%; padding-top: 70px; background-color: #D6D6D6}
 	}
 }
 
+.region-container {
+	.region{
+		padding: 5px;
+		color: white;
+		position: relative;
+		height: 50px;
+
+		.region-name {
+			width: 100%;
+			height: 100%;
+			font-size: 1.1em;
+			line-height: 40px;
+			background: #00005E;
+			padding-left: 5px;
+		}
+
+		.region-watch {
+			cursor: pointer;
+			position: absolute;
+			top: 6px;
+			right: 6px;
+			width: 20px;
+			height: 20px;
+		}
+	}
+}
+
 .controls-container {
 	height: 40px;
 
@@ -166,6 +192,56 @@ body {width: 100%; height: 100%; padding-top: 70px; background-color: #D6D6D6}
 
 		.travel-input{
 			float: right;
+		}
+	}
+}
+
+.pop-container {
+	display: flex;
+	flex-flow: row wrap;
+	justify-content: space-between;
+	align-content: center;
+	align-items: stretch;
+
+	.pop-item {
+		flex: 0 0 auto;
+		align-self: auto;
+		margin-right: 5px;
+
+		&.total {
+			order: 0;
+		}
+
+		&.pop-break {
+			order: 1;
+		}
+
+		&.adult-break {
+			order: 2;
+		}
+
+		&.minor-break {
+			order: 3;
+		}
+
+		&.sus-break {
+			order: 4;
+		}
+
+		&.exp-break {
+			order: 5;
+		}
+
+		&.inf-break {
+			order: 6;
+		}
+
+		&.rec-break {
+			order: 7;
+		}
+
+		&.dec-break {
+			order: 8;
 		}
 	}
 }
