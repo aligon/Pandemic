@@ -80,7 +80,7 @@ function Main() {
 
 		function computeTravel(name, data) {
 			var region = data[name], i,
-				sus = 0, exp = 0;
+				sus = 0, exp = 0, copy;
 
 			function getRegionPerc(name, key) {
 				var region = data[name],
@@ -110,7 +110,11 @@ function Main() {
 			region['susceptible-adults'] = sus;
 			region['exposed-adults'] = exp;
 
-			return region;
+			copy = JSON.parse(JSON.stringify(region));
+
+			delete copy.travelRates;
+
+			return copy;
 		}
 
 		function maybeFinish(json) {
@@ -171,7 +175,6 @@ function Main() {
 
 				if (count % regionConfig.MaxAllowedProcesses === 0) {
 					waiting++;
-					thread.regions = regionlist;
 					thread.disease = state.disease;
 
 					calcThread(thread);
