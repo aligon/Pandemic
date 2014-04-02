@@ -49,24 +49,24 @@ function Main() {
 			if (data.hasOwnProperty(i)) {
 				result[i] = {
 					susceptible: {
-						adults: data[i]['susceptible-adults'] + 10,
-						minors: data[i]['susceptible-minors'] + 10
+						adults: data[i]['susceptible-adults'],
+						minors: data[i]['susceptible-minors']
 					},
 					exposed: {
-						adults: data[i]['exposed-adults'] + 10,
-						minors: data[i]['exposed-minors'] + 10
+						adults: data[i]['exposed-adults'],
+						minors: data[i]['exposed-minors']
 					},
 					infected: {
-						adults: data[i]['infected-adults'] + 10,
-						minors: data[i]['infected-minors'] + 10
+						adults: data[i]['infected-adults'],
+						minors: data[i]['infected-minors']
 					},
 					recovered: {
-						adults: data[i]['recovered-adults'] + 10,
-						minors: data[i]['recovered-minors'] + 10
+						adults: data[i]['recovered-adults'],
+						minors: data[i]['recovered-minors']
 					},
 					deceased: {
-						adults: data[i]['deceased-adults'] + 10,
-						minors: data[i]['deceased-minors'] + 10
+						adults: data[i]['deceased-adults'],
+						minors: data[i]['deceased-minors']
 					}
 				};
 			}
