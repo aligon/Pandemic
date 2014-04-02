@@ -13,14 +13,6 @@ PandemicApp.service('DiseaseManager', function() {
 		};
 	};
 
-	this.moratiltyChange = function() {
-		this.recoveryRate = 100 - this.mortalityRate;
-	};
-
-	this.recoveryChange = function() {
-		this.moratiltyRate = 100 - this.recoverRate;
-	};
-
 	this.getState = function() {
 		return {
 			exposureRate: this.exposureRate / 100, //its a %
