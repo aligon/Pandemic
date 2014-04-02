@@ -173,7 +173,7 @@ function Main() {
 
 				thread[region] = computeTravel(region, state.regions);
 
-				if (count % regionConfig.MaxAllowedProcesses === 0) {
+				if (count === state.regions.length) {
 					waiting++;
 					thread.disease = state.disease;
 
