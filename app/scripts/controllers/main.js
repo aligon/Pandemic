@@ -13,7 +13,14 @@ PandemicApp.controller('RegionCtrl', [
 	function($scope, $modalInstance, Region) {
 		$scope.region = Region;
 		$scope.ok = function() {
-			console.log(Region);
+			$modalInstance.close();
+		};
+	}
+]);
+
+PandemicApp.controller('HelpCtrl', ['$scope', '$modalInstance',
+	function($scope, $modalInstance) {
+		$scope.ok = function() {
 			$modalInstance.close();
 		};
 	}
@@ -75,6 +82,13 @@ PandemicApp.controller('MainCtrl', [
 						}
 					}
 				});
+		};
+
+		$scope.openHelp = function(name) {
+			var modelInstance = $modal.open({
+				templateUrl: 'views/Help.html',
+				controller: 'HelpCtrl'
+			});
 		};
 	}
 ]);

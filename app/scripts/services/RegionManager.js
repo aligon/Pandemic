@@ -411,9 +411,6 @@ function Region(config) {
 				console.error('WUT?!?!', set);
 			}
 		});
-
-		console.log(total.datasets);
-
 	}
 
 	function updateCurrent(state) {
