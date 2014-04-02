@@ -76,7 +76,8 @@ function Main() {
 	}
 
 	function generateNext(state, callback) {
-		var waiting = 0, count = 0, region, thread = {}, regionlist = '', result = state.regions;
+		var waiting = 0, count = 0, region, thread = {}, regionlist = '', result = state.regions,
+			maxProcesses = regionConfig.MaxAllowedProcesses, isMod, isMax;
 
 		function computeTravel(name, data) {
 			var region = data[name], i,
@@ -105,7 +106,7 @@ function Main() {
 			}
 
 			sus = Math.max(Math.round(region['susceptible-adults'] + sus), 0);
-			exp = Math.max(Math.round(region['exposed-adults'] + exp + 10), 0);
+			exp = Math.max(Math.round(region['exposed-adults'] + exp), 0);
 
 			region['susceptible-adults'] = sus;
 			region['exposed-adults'] = exp;
@@ -173,7 +174,10 @@ function Main() {
 
 				thread[region] = computeTravel(region, state.regions);
 
-				if (count === state.regions.length) {
+				isMod = count % maxProcesses === 0 && maxProcesses > 1;
+				isMax = count === state.regions.length;
+
+				if (isMod || isMax) {
 					waiting++;
 					thread.disease = state.disease;
 
