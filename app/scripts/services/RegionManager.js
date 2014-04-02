@@ -44,8 +44,8 @@ function Region(config) {
 			minors: 0
 		},
 		deceased: {
-			adults: 100000,
-			minors: 100000
+			adults: 0,
+			minors: 0
 		}
 	};
 
