@@ -1,0 +1,35 @@
+<div>
+	<div class='modal-header'>
+		<h3>Help</h3>
+	</div>
+	<div class = 'modal-body'>
+		<h4>About</h4>
+		<p>
+		This application is designed to model the spread of a disease across different regions. It is based on equations taken from <a href='http://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=5429732'><i>A Pandemic Influenza Simulation Model For Preparedness Planning 
+</i></a>. Populations within the regions are broken up into the following 5 categories: susceptible, exposed, infected, recovered, and deceased. Based on the disease properties and the travel rates between regions people will move from susceptible to exposed to infected, and from there either move to recovered or deceased. 
+		</p>
+		<h4>Region Map</h4>
+		<p>
+		The map of regions gives a visual representation of the state of a region at a glance. As the number of deceased increases, the color of the region will darken. Hovering over a region will give a popout of the current state, giving the region name and the break down of the population. 
+		</p>
+		<h4>Watch</h4>
+		<p>
+		The watch will show the state of regions as they are changing in real time. Clicking the <i class="fa fa-eye"></i> next to a region in the list will add it to the watch. Clicking the X next to it in the watch will remove it.
+		</p>
+		<h4>Control</h4>
+		<p>
+		The controls allow you to start the simulation by clicking <i class='fa fa-play'></i>. You can pause the simulation to further inspect the state by cliking <i class='fa fa-pause'></i>. The speed the state is updating can be increased by cliking either <i class='fa fa-forward'></i> or <i class='fa fa-forward'></i> <i class='fa fa-forward second'></i>
+		</p>
+		<h4>Disease</h4>
+		<p>
+		The different aspects of the disease that are configurable can be changed from the disease modal which can be opened by clicking <button type='button' class='btn btn-primary'>Disease</button>. Exposure is the chance a susceptible person will become exposed on coming in contact with an exposed or infected person. Infection is the number of exposed people who become infected in one day. Recovery is the number of infected people who recover in one day. Deceased is the number of infected people who become deceased in one day.
+		</p>
+		<h4>Region List</h4>
+		<p>
+		Below the map there is a list of all the regions. It can be searched by name using the search bar. Clicking the region will bring up a modal window, that contains the various inputs to control the travel and contact rates of the region. Charts and graphs are also available to better show how the regions population is divide and how thats changed over time.
+		</p>
+	</div>
+	<div class='modal-footer'>
+		<button class="btn btn-primary" ng-click="ok()">OK</button>
+	</div>
+</div>
