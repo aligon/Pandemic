@@ -1,6 +1,6 @@
 {
-	"TotalNumberOfRegions": 5,
-	"MaxAllowedProcesses": 5,
+	"TotalNumberOfRegions": 50,
+	"MaxAllowedProcesses": 1,
 	"Regions": {
 		"Alabama": {
 			"id": "#AL",

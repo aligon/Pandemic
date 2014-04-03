@@ -1,4 +1,4 @@
-function Region(config) {
+function Region(config, start) {
 	var i, incoming, outgoing, initialState, outCount = 0,
 		CONNECTION_CONST = 0.05, me = this, chartOptions;
 
@@ -12,15 +12,19 @@ function Region(config) {
 
 	this.states = [];
 
+	if (start) {
+		alert('Started in ' + this.name);
+	}
+
 	initialState = {
 		contactRate: {
 			adults: {
-				adults: 0,
-				minors: 0
+				adults: 50,
+				minors: 10
 			},
 			minors: {
-				adults: 0,
-				minors: 0
+				adults: 10,
+				minors: 30
 			}
 		},
 		travelRates: {
@@ -32,8 +36,8 @@ function Region(config) {
 			minors: this.population.minors
 		},
 		exposed: {
-			adults: 0,
-			minors: 0
+			adults: start ? 100 : 0,
+			minors: start ? 100 : 0
 		},
 		infected: {
 			adults: 0,
@@ -694,11 +698,16 @@ PandemicApp.service('RegionManager', ['SocketManager', '$q', function(SocketMana
 	me.regions = [];
 
 	socket.addListener('return-region-config', function(data) {
-		var i, c = 0;
+		var i, c = 0, start = Math.floor(Math.random() * 50);
+
+		if (me.regions.length > 0) {
+			console.error('Already got the regions');
+			return;
+		}
 
 		for (i in data) {
 			if (data.hasOwnProperty(i)) {
-				me.regions[c] = new Region(data[i]);
+				me.regions[c] = new Region(data[i], c === start);
 				names[i] = c;
 				ids[data[i].id] = c;
 				c++;
