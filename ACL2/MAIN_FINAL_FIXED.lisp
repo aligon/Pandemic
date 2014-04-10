@@ -299,7 +299,7 @@
 
 ;Gets the key by calling get-str using the quote mark as delimiter
 (defun get-key (chrs)
-   (chrs->str (get-str chrs nil #\')))
+   (chrs->str (get-str chrs nil #\")))
 
 ;Gets the value by calling get-str using the comma as delimiter
 (defun get-val (chrs)
@@ -315,7 +315,7 @@
  ; Returns a list where the first element is the tree and the second is the char length of the tree
 (defun val-tree (chrs tr)
    (if (consp chrs)
-   	(if (equal (car chrs) #\')
+   	(if (equal (car chrs) #\")
         (if (equal (cadr chrs) #\:)
             (val-tree (cddr chrs) tr)
       	  (let* ((key (get-key (cdr chrs)))
@@ -368,16 +368,17 @@
        (let* ((value (avl-get tr (car keys)))) ; Value should be either a number or a tree
              (if (rationalp value) 
                  (if (consp (cdr keys)) ; If the value is a number
-                     (append (list #\') (str->chrs (car keys))  (list #\' #\:) (int->chrs value) '(#\,) (deparse-r (cdr keys) tr)) ; Add ("<key>":<value>,) to the front of the rest of the expression
-                     (append (list #\') (str->chrs (car keys))  (list #\' #\:) (int->chrs value) (deparse-r (cdr keys) tr))) ; Add ("<key>":<value>) to the front of the rest of the expression
+                     (append (list #\") (str->chrs (car keys))  (list #\" #\:) (int->chrs value) '(#\,) (deparse-r (cdr keys) tr)) ; Add ("<key>":<value>,) to the front of the rest of the expression
+                     (append (list #\") (str->chrs (car keys))  (list #\" #\:) (int->chrs value) (deparse-r (cdr keys) tr))) ; Add ("<key>":<value>) to the front of the rest of the expression
                  (if (consp (cdr keys)) ; If the value is a tree
-                     (append (list #\') (str->chrs (car keys)) (list #\' #\: #\{) (deparse-r (keys value) value) '(#\,) (deparse-r (cdr keys) tr)) ; Add ("<key>":{<tree representation>},) to the rest of the expression
-                     (append (list #\') (str->chrs (car keys)) (list #\' #\: #\{) (deparse-r (keys value) value) (deparse-r (cdr keys) tr))))); Add ("<key>":{<tree representation>}) to the rest of the expression
+                     (append (list #\") (str->chrs (car keys)) (list #\" #\: #\{) (deparse-r (keys value) value) '(#\,) (deparse-r (cdr keys) tr)) ; Add ("<key>":{<tree representation>},) to the rest of the expression
+                     (append (list #\") (str->chrs (car keys)) (list #\" #\: #\{) (deparse-r (keys value) value) (deparse-r (cdr keys) tr))))); Add ("<key>":{<tree representation>}) to the rest of the expression
        (list #\})));If there are noe more values in keys return } signifying the end of the tree
    
 ; Takes in an AVL-tree and returns the JSON string representing the tree
 (defun deparse (tr) 
    (chrs->str (cons #\{ (deparse-r (keys tr) tr ))))
+
 
 
 ;; Calculates the number of recovered individuals in a given region
@@ -410,10 +411,10 @@
 ;listInfected is a list of the infected for each age group in a region
 ;listPopulation is a list of the population for each age group in a region
 ;omegaE is a set value for the rates of exposed
-(defun sumAgeGrp (crList listInfected listPopulation omegaE)
+(defun sumAgeGrp (crList listInfected listPopulation)
    (if (and  (> (len listInfected) 1)  (> (len listPopulation) 1))
-       (+ (* (car crList) (/ (+ omegaE (car listInfected)) (car listPopulation))) (sumAgeGrp (cdr crList)(cdr listInfected)(cdr listPopulation) omegaE))
-       (* (car crList) (/ (+ omegaE (car listInfected)) (car listPopulation)))
+       (+ (* (car crList) (/ (car listInfected) (car listPopulation))) (sumAgeGrp (cdr crList)(cdr listInfected)(cdr listPopulation)))
+       (* (car crList) (/ (car listInfected) (car listPopulation)))
    )
 )
 
@@ -423,8 +424,8 @@
 ;infectR is the infection rate of the disease
 ;crList contract rate list, varying rates for each age group
 ;omegaS , omegaE are given rates for susceptible and exposed
-(defun dSus (infectR omegaS crList omegaE listInf listPop)
-   (* (- 0 infectR) omegaS (sumAgeGrp crList listInf listPop omegaE))   
+(defun dSus (exposeR crList listInf listPop totalSus)
+   (* (- 0 exposeR) (sumAgeGrp crList listInf listPop) totalSus)   
 )
 
 ;Exposed function
@@ -434,9 +435,22 @@
 ;crList contract rate list, varying rates for each age group
 ;omegaS , omegaE are given rates for susceptible and exposed
 ;progR is the progression rate of the disease
-(defun dExp (infectR omegaS crList omegaE listInf listPop progR)
-   (- (* infectR omegaS (sumAgeGrp crList listInf listPop omegaE)) (* progR omegaE))
+(defun dExp (infectR crList listInf listPop susPop numInfected)
+   (- (* infectR (sumAgeGrp crList listInf listPop) susPop) numInfected)
 )
+
+;Double checks the output
+(defun checkOut (x)
+   (if (< x 0)
+       0
+       x)
+       )
+
+;Returns the total population of the region input
+(defun getPop (region)
+  (list (+ (avl-get region "infected-adults") (avl-get region "exposed-adults") (avl-get region "susceptible-adults")) 
+        (+ (avl-get region "infected-minors") (avl-get region "exposed-minors") (avl-get region "susceptible-minors"))
+        )) 
 
 (defun constructRegionOutput (region disease output)
    (if (empty-tree? region)
@@ -444,58 +458,68 @@
        (let* ((numNewDeadAD (Deceased (avl-get region "infected-adults") (avl-get disease "mortalityRate")))
           (numNewRecovAD (Recovered (avl-get region "infected-adults") (avl-get disease "recoveryRate")))
   		(adultNewinfect (Infected (avl-get region "exposed-adults") (avl-get disease "infectionRate")))
-          (adultNewExposed (* (avl-get region "susceptible-adults") (avl-get disease "exposureRate")))
-          (adultNewSus (* (avl-get region "population-adults") (avl-get disease "exposureRate"))))
           
-;          (adultDeceased (+ (avl-get region "deceased-adults") numNewDeadAD))
-;          (adultRecov (+ (avl-get region "recovered-adults") numNewRecovAD))
-;          (adultTotalInfect (+ adultNewinfect (- (avl-get region "infected-adults") (+ numNewDeadAD numNewRecovAD))))
-;          (adultTotalExposed (+ adultNewExposed (- (avl-get region "exposed-adults") adultNewinfect)))
-;          (adultTotalSus (+ adultNewSus (- (avl-get region "susceptible-adults") adultNewExposed)))
+          (adultDeceased (+ (avl-get region "deceased-adults") numNewDeadAD))
+          (adultRecov (+ (avl-get region "recovered-adults") numNewRecovAD))
+          (adultTotalInfect (+ adultNewinfect (- (avl-get region "infected-adults") (+ numNewDeadAD numNewRecovAD))))
+          (adultTotalExposed (+ (avl-get region "exposed-adults") 
+                                (dExp (avl-get disease "exposureRate") (list (avl-get region "contact-adult-adult") (avl-get region "contact-adult-minor"))
+                               (list (avl-get region "infected-adults") (avl-get region "infected-minors"))
+                               (getPop region) (avl-get region "susceptible-adults") adultNewinfect)))
+          (adultTotalSus (- (avl-get region "susceptible-adults") 
+                            (dSus (avl-get disease "exposureRate") (list (avl-get region "contact-adult-adult") (avl-get region "contact-adult-minor"))
+                            (list (avl-get region "infected-adults") (avl-get region "infected-minors"))
+                            (getPop region) (avl-get region "susceptible-adults"))))
            
-;   		(numNewDeadCH (Deceased (avl-get region "infected-minors") (avl-get disease "mortalityRate")))
-;          (numNewRecovCH (Recovered (avl-get region "infected-minors") (avl-get disease "recoveryRate")))
-;  		(minorNewinfect (Infected (avl-get region "exposed-minors") (avl-get disease "infectionRate")))
-;          (minorNewExposed (* (avl-get region "susceptible-minors") (avl-get disease "exposureRate")))
-;          (minorNewSus (* (avl-get region "population-minors") (avl-get disease "exposureRate")))
+   		(numNewDeadCH (Deceased (avl-get region "infected-minors") (avl-get disease "mortalityRate")))
+          (numNewRecovCH (Recovered (avl-get region "infected-minors") (avl-get disease "recoveryRate")))
+  		(minorNewinfect (Infected (avl-get region "exposed-minors") (avl-get disease "infectionRate")))
           
-;          (minorDeceased (+ (avl-get region "deceased-minors") numNewDeadCH))
-;          (minorRecov (+ (avl-get region "recovered-minors") numNewRecovCH))
-;          (minorTotalInfect (+ minorNewinfect (- (avl-get region "infected-minors") (+ numNewDeadCH numNewRecovCH))))
-;          (minorTotalExposed (+ minorNewExposed (- (avl-get region "exposed-minors") minorNewinfect)))
-;          (minorTotalSus (+ minorNewSus (- (avl-get region "susceptible-minors") minorNewExposed)))
+          (minorDeceased (+ (avl-get region "deceased-minors") numNewDeadCH))
+          (minorRecov (+ (avl-get region "recovered-minors") numNewRecovCH))
+          (minorTotalInfect (+ minorNewinfect (- (avl-get region "infected-minors") (+ numNewDeadCH numNewRecovCH))))
+          (minorTotalExposed (+ (avl-get region "exposed-minors") 
+                                (dExp (avl-get disease "exposureRate") (list (avl-get region "contact-adult-minor") (avl-get region "contact-minor-minor"))
+                               (list (avl-get region "infected-adults") (avl-get region "infected-minors"))
+                               (getPop region) (avl-get region "susceptible-adults") adultNewinfect)))
+          (minorTotalSus (- (avl-get region "susceptible-minors") 
+                            (dSus (avl-get disease "exposureRate") (list (avl-get region "contact-adult-minor") (avl-get region "contact-minor-minor"))
+                            (list (avl-get region "infected-adults") (avl-get region "infected-minors"))
+                            (getPop region) (avl-get region "susceptible-minors"))))
     		
-;         	(output (avl-insert output "infected-adults" adultTotalInfect))
-;        	(output (avl-insert output "exposed-adults" adultTotalExposed))
-;      	(output (avl-insert output "susceptible-adults" adultTotalSus))
-;         	(output (avl-insert output "deceased-adults" adultDeceased))
-;         	(output (avl-insert output "recovered-adults" adultRecov))
+        (output (avl-insert output "infected-adults" (checkOut (floor adultTotalInfect 1))))
+        (output (avl-insert output "exposed-adults" (checkOut (floor adultTotalExposed 1))))
+      	(output (avl-insert output "susceptible-adults" (checkOut (floor adultTotalSus 1))))
+         	(output (avl-insert output "deceased-adults" (checkOut (floor adultDeceased 1))))
+         	(output (avl-insert output "recovered-adults" (checkOut (floor adultRecov 1))))
           
-;         	(output (avl-insert output "infected-minors" minorTotalInfect))
-;        	(output (avl-insert output "exposed-minors" minorTotalExposed))
-;       	(output (avl-insert output "susceptible-minors" minorTotalSus))
-;         	(output (avl-insert output "deceased-minors" minorDeceased))
-;         	(output (avl-insert output "recovered-minors" minorRecov)))
-;          output
-; 		)
- 		(list numNewDeadAD numNewRecovAD adultNewinfect adultNewExposed adultNewSus output)  		
+         	(output (avl-insert output "infected-minors" (checkOut (floor minorTotalInfect 1))))
+        	(output (avl-insert output "exposed-minors" (checkOut (floor minorTotalExposed 1))))
+       	(output (avl-insert output "susceptible-minors" (checkOut (floor minorTotalSus 1))))
+         	(output (avl-insert output "deceased-minors" (checkOut (floor minorDeceased 1))))
+         	(output (avl-insert output "recovered-minors" (checkOut (floor minorRecov 1)))))
+          output
    		)))
-
-(defun testing (str)
-   (let* ((tr (parse (str->chrs str)))
-          (disease (avl-get tr "disease"))
-          (co (avl-get tr "Colorado")))
-         (constructRegionOutput co disease (empty-tree))))
-        	
+  
+             
 
 (defun calculateRegions-r (mainTree regions)
    (if (consp regions)
-       (cons (constructRegionOutput (avl-get mainTree (car regions)) (avl-get mainTree "disease") (empty-tree)) (calculateRegions-r mainTree (cdr regions)))
+       (if (equal (car regions) "disease")
+           (calculateRegions-r mainTree (cdr regions))
+       	 (cons (avl-insert (empty-tree) (car regions) (constructRegionOutput (avl-get mainTree (car regions)) (avl-get mainTree "disease") (empty-tree))) (calculateRegions-r mainTree (cdr regions))))
        nil))
 (defun calculateRegions (mainTree)
    (let* ((regions (remove "disease" (keys mainTree))))
          (avl-combine (calculateRegions-r mainTree regions))))
+  ; regions))
    
+; Converts from string to the tree
+(defun update (str)
+   (let* ((tr (parse (str->chrs str))))
+         (calculateRegions tr)))
+
+
 
 ;###################################################################################
 ; Input Output
@@ -506,7 +530,7 @@
       (if error-open 
           (mv error-open state)
           (mv-let (error-close state)
-                  (string-list->file f-out (list (deparse  (parse (str->chrs input-string)))) state)
+                  (string-list->file f-out   (list (deparse (update input-string))) state); (parse (str->chrs input-string)))) state)
              (if error-close
                  (mv error-close state)
                  (mv (string-append "input file: "
@@ -514,23 +538,6 @@
 					(string-append ", output file: " f-out)))
                      state))))))   
        
-(defun main (state)
-   (in-out "input.txt" "output.txt" state))
-
-
-;###################################################################################
-; Testing stuff
-
-(defun numCharP (chr) ; Determines if the character is a valid number character
-   (if (or (equal chr #\0)(equal chr #\1)(equal chr #\2)(equal chr #\3)(equal chr #\4)(equal chr #\5)(equal chr #\6)(equal chr #\7)(equal chr #\8)(equal chr #\9))
-       t
-       nil))
-
-
-   
-       
-
-   
-   
-   
+(defun main (input output state)
+   (in-out input output state))
    

@@ -1,0 +1,7 @@
+{'Colorado':{'susceptible-adults':90,'susceptible-minors':1092419,'exposed-adults':32,'exposed-minors':20,'infected-adults':20,'infected-minors':20,'recovered-adults':20,'recovered-minors':20,'deceased-adults':100020,'deceased-minors':100020,'contact-adult-adult':.67,'contact-adult-minor':.32,'contact-minor-minor':.23},'disease':{'exposureRate':.34,'infectionRate':.23,'mortalityRate':.85,'recoveryRate':.12}}
+
+{'Colorado':{'susceptible-adults':90,'susceptible-minors':1092419,'exposed-adults':32,'exposed-minors':20,'infected-adults':20,'infected-minors':20,'recovered-adults':20,'recovered-minors':20,'deceased-adults':100020,'deceased-minors':100020,'contact-adult-adult':.67,'contact-adult-minor':.32,'contact-minor-minor':.23,},'Oklahoma':{'susceptible-adults':190,'susceptible-minors':2419,'exposed-adults':323,'exposed-minors':20,'infected-adults':20,'infected-minors':20,'recovered-adults':20,'recovered-minors':20,'deceased-adults':100020,'deceased-minors':10202,'contact-adult-adult':.23,'contact-adult-minor':.212,'contact-minor-minor':.39,},'disease':{'exposureRate':.43,'infectionRate':.234,'mortalityRate':.82,'recoveryRate':.67,}}
+
+
+
+{'Colorado':{'susceptible-adults':0,'susceptible-minors':1092409,'exposed-adults':0,'exposed-minors':10,'infected-adults':10,'infected-minors':10,'recovered-adults':10,'recovered-minors':10,'deceased-adults':100010,'deceased-minors':100010,'contact-adult-adult':0,'contact-adult-minor':0,'contact-minor-minor':0,},'disease':{'exposureRate':.34,'infectionRate':.73,'mortalityRate':.83,'recoveryRate':.23,}}

@@ -282,9 +282,7 @@
   (or (not (consp (cdr pairs)))
       (and (key< (caar pairs) (caadr pairs))
            (increasing-pairs? (cdr pairs)))))
-;###################################################################################
-;    			JSON -> AVL tree
-
+;-----------------------------------------------------------------------------------------------
 ;Retrieves the value given the key
 (defun avl-get (tr k)
    (cdr (avl-retrieve tr k)))
@@ -308,11 +306,10 @@
 ;Gets the length of the string represented by the tree
 (defun tree-length (chrs num)
    (if (equal (car chrs) #\})
-       (+ num 2)
+       (+ num 1)
        (tree-length (cdr chrs) (+ num 1))))
 
 (mutual-recursion
- ; Returns a list where the first element is the tree and the second is the char length of the tree
 (defun val-tree (chrs tr)
    (if (consp chrs)
    	(if (equal (car chrs) #\')
@@ -322,10 +319,10 @@
            	     (vlist (val (nthcdr (+(length key) 2) chrs))); nthcdr-key length + 2 accounts for quotes on either side of the key.
               		(value (car vlist))
               		(vlen (cadr vlist)))
-  		   		(val-tree (nthcdr (+ (length key) vlen 3) chrs) (avl-insert tr key value)))) ; Plus 4 accounts for the quotes on the key, the colon, and the comma
-	    (if (equal (car chrs) #\})
-         	    tr
-              (val-tree (nthcdr 1 chrs) tr)))
+  		   		(val-tree (nthcdr (+ (length key) vlen 4) chrs) (avl-insert tr key value)))) ; Plus 4 accounts for the quotes on the key, the colon, and the comma
+	 	 (if (equal (car chrs) #\})
+         		   tr
+            (val-tree (nthcdr 1 chrs) tr)))
        tr))
 ;Returns  a list where the first element is the value (Either a real number or a tree) and the second is the length of the string it represents.            
 (defun val (chrs)
@@ -343,8 +340,6 @@
            (val-tree json (empty-tree)))
        nil))
 
-;###################################################################################
-
 ; Combines AVL trees into one tree
 (defun avl-combine-r (trs newTr)
    (if (consp trs)
@@ -355,30 +350,6 @@
 
 (defun avl-combine (trs)
    (avl-combine-r trs (empty-tree)))
-
-;###################################################################################
-;    AVL tree -> JSON
-(defun int->chrs (int)
-   (str->chrs (rat->str int 5)))
-
-   
-
-(defun deparse-r(keys tr) ; Recursive function
-   (if (consp keys)
-       (let* ((value (avl-get tr (car keys)))) ; Value should be either a number or a tree
-             (if (rationalp value) 
-                 (if (consp (cdr keys)) ; If the value is a number
-                     (append (list #\') (str->chrs (car keys))  (list #\' #\:) (int->chrs value) '(#\,) (deparse-r (cdr keys) tr)) ; Add ("<key>":<value>,) to the front of the rest of the expression
-                     (append (list #\') (str->chrs (car keys))  (list #\' #\:) (int->chrs value) (deparse-r (cdr keys) tr))) ; Add ("<key>":<value>) to the front of the rest of the expression
-                 (if (consp (cdr keys)) ; If the value is a tree
-                     (append (list #\') (str->chrs (car keys)) (list #\' #\: #\{) (deparse-r (keys value) value) '(#\,) (deparse-r (cdr keys) tr)) ; Add ("<key>":{<tree representation>},) to the rest of the expression
-                     (append (list #\') (str->chrs (car keys)) (list #\' #\: #\{) (deparse-r (keys value) value) (deparse-r (cdr keys) tr))))); Add ("<key>":{<tree representation>}) to the rest of the expression
-       (list #\})));If there are noe more values in keys return } signifying the end of the tree
-   
-; Takes in an AVL-tree and returns the JSON string representing the tree
-(defun deparse (tr) 
-   (chrs->str (cons #\{ (deparse-r (keys tr) tr ))))
-
 
 ;; Calculates the number of recovered individuals in a given region
 ;; Parameters are the number of infected and the rate of recovery
@@ -441,52 +412,43 @@
 (defun constructRegionOutput (region disease output)
    (if (empty-tree? region)
        nil
-       (let* ((numNewDeadAD (Deceased (avl-get region "infected-adults") (avl-get disease "mortalityRate")))
-          (numNewRecovAD (Recovered (avl-get region "infected-adults") (avl-get disease "recoveryRate")))
-  		(adultNewinfect (Infected (avl-get region "exposed-adults") (avl-get disease "infectionRate")))
-          (adultNewExposed (* (avl-get region "susceptible-adults") (avl-get disease "exposureRate")))
-          (adultNewSus (* (avl-get region "population-adults") (avl-get disease "exposureRate"))))
+       (let* ((numNewDeadAD (Deceased (avl-retrieve region "infected-adults") (avl-retrieve disease "moralityRate")))
+          (numNewRecovAD (Recovered (avl-retrieve region "infected-adults") (avl-retrieve disease "recoveryRate")))
+  		(adultNewinfect (Infected (avl-retrieve region "exposed-adults") (avl-retrieve disease "Progression Rate")))
+          (adultNewExposed (* (avl-retrieve region "suseptible-adults") (avl-retrieve disease "infectionRate")))
+          (adultNewSus (* (avl-retrieve region "population-adults") (avl-retrieve disease "exposureRate")))
           
-;          (adultDeceased (+ (avl-get region "deceased-adults") numNewDeadAD))
-;          (adultRecov (+ (avl-get region "recovered-adults") numNewRecovAD))
-;          (adultTotalInfect (+ adultNewinfect (- (avl-get region "infected-adults") (+ numNewDeadAD numNewRecovAD))))
-;          (adultTotalExposed (+ adultNewExposed (- (avl-get region "exposed-adults") adultNewinfect)))
-;          (adultTotalSus (+ adultNewSus (- (avl-get region "susceptible-adults") adultNewExposed)))
+          (adultDeceased (+ (avl-retrieve region "deceased-adults") numNewDeadAD))
+          (adultRecov (+ (avl-retrieve region "recovered-adults") numNewRecovAD))
+          (adultTotalInfect (+ adultNewinfect (- (avl-retrieve region "infected-adults") (+ numNewDeadAD numNewRecovAD))))
+          (adultTotalExposed (+ adultNewExposed (- (avl-retrieve region "exposed-adults") adultNewinfect)))
+          (adultTotalSus (+ adultNewSus (- (avl-retrieve region "susceptible-adults") adultNewExposed)))
            
-;   		(numNewDeadCH (Deceased (avl-get region "infected-minors") (avl-get disease "mortalityRate")))
-;          (numNewRecovCH (Recovered (avl-get region "infected-minors") (avl-get disease "recoveryRate")))
-;  		(minorNewinfect (Infected (avl-get region "exposed-minors") (avl-get disease "infectionRate")))
-;          (minorNewExposed (* (avl-get region "susceptible-minors") (avl-get disease "exposureRate")))
-;          (minorNewSus (* (avl-get region "population-minors") (avl-get disease "exposureRate")))
+   		(numNewDeadCH (Deceased (avl-retrieve region "infected-minors") (avl-retrieve disease "mortalityRate")))
+          (numNewRecovCH (Recovered (avl-retrieve region "infected-minors") (avl-retrieve disease "recoveryRate")))
+  		(minorNewinfect (Infected (avl-retrieve region "exposed-minors") (avl-retrieve disease "Progression Rate")))
+          (minorNewExposed (* (avl-retrieve region "suseptible-minors") (avl-retrieve disease "infectionRate")))
+          (minorNewSus (* (avl-retrieve region "population-minors") (avl-retrieve disease "exposureRate")))
           
-;          (minorDeceased (+ (avl-get region "deceased-minors") numNewDeadCH))
-;          (minorRecov (+ (avl-get region "recovered-minors") numNewRecovCH))
-;          (minorTotalInfect (+ minorNewinfect (- (avl-get region "infected-minors") (+ numNewDeadCH numNewRecovCH))))
-;          (minorTotalExposed (+ minorNewExposed (- (avl-get region "exposed-minors") minorNewinfect)))
-;          (minorTotalSus (+ minorNewSus (- (avl-get region "susceptible-minors") minorNewExposed)))
+          (minorDeceased (+ (avl-retrieve region "deceased-minors") numNewDeadCH))
+          (minorRecov (+ (avl-retrieve region "recovered-minors") numNewRecovCH))
+          (minorTotalInfect (+ minorNewinfect (- (avl-retrieve region "infected-minors") (+ numNewDeadCH numNewRecovCH))))
+          (minorTotalExposed (+ minorNewExposed (- (avl-retrieve region "exposed-minors") minorNewinfect)))
+          (minorTotalSus (+ minorNewSus (- (avl-retrieve region "susceptible-minors") minorNewExposed)))
     		
-;         	(output (avl-insert output "infected-adults" adultTotalInfect))
-;        	(output (avl-insert output "exposed-adults" adultTotalExposed))
-;      	(output (avl-insert output "susceptible-adults" adultTotalSus))
-;         	(output (avl-insert output "deceased-adults" adultDeceased))
-;         	(output (avl-insert output "recovered-adults" adultRecov))
+         	(output (avl-insert output "infected-adults" adultTotalInfect))
+        	(output (avl-insert output "exposed-adults" adultTotalExposed))
+      	(output (avl-insert output "susceptible-adults" adultTotalSus))
+         	(output (avl-insert output "deceased-adults" adultDeceased))
+         	(output (avl-insert output "recovered-adults" adultRecov))
           
-;         	(output (avl-insert output "infected-minors" minorTotalInfect))
-;        	(output (avl-insert output "exposed-minors" minorTotalExposed))
-;       	(output (avl-insert output "susceptible-minors" minorTotalSus))
-;         	(output (avl-insert output "deceased-minors" minorDeceased))
-;         	(output (avl-insert output "recovered-minors" minorRecov)))
-;          output
-; 		)
- 		(list numNewDeadAD numNewRecovAD adultNewinfect adultNewExposed adultNewSus output)  		
+         	(output (avl-insert output "infected-minors" minorTotalInfect))
+        	(output (avl-insert output "exposed-minors" minorTotalExposed))
+       	(output (avl-insert output "susceptible-minors" minorTotalSus))
+         	(output (avl-insert output "deceased-minors" minorDeceased))
+         	(output (avl-insert output "recovered-minors" minorRecov)))
+          output
    		)))
-
-(defun testing (str)
-   (let* ((tr (parse (str->chrs str)))
-          (disease (avl-get tr "disease"))
-          (co (avl-get tr "Colorado")))
-         (constructRegionOutput co disease (empty-tree))))
-        	
 
 (defun calculateRegions-r (mainTree regions)
    (if (consp regions)
@@ -496,6 +458,29 @@
    (let* ((regions (remove "disease" (keys mainTree))))
          (avl-combine (calculateRegions-r mainTree regions))))
    
+   
+;###################################################################################
+;    AVL tree -> JSON
+(defun int->chrs (int)
+   (str->chrs (rat->str int 0)))
+
+   
+
+(defun deparse-r(keys tr) ; Recursive function
+   (if (consp keys)
+       (let* ((value (avl-get tr (car keys)))) ; Value should be either a number or a tree
+             (if (natp value) 
+                 (if (consp (cdr keys)) ; If the value is a number
+                     (append (list #\") (str->chrs (car keys))  (list #\" #\:) (int->chrs value) '(#\,) (deparse-r (cdr keys) tr)) ; Add ("<key>":<value>,) to the front of the rest of the expression
+                     (append (list #\") (str->chrs (car keys))  (list #\" #\:) (int->chrs value) (deparse-r (cdr keys) tr))) ; Add ("<key>":<value>) to the front of the rest of the expression
+                 (if (consp (cdr keys)) ; If the value is a tree
+                     (append (list #\") (str->chrs (car keys)) (list #\" #\: #\{) (deparse-r (keys value) value) '(#\,) (deparse-r (cdr keys) tr)) ; Add ("<key>":{<tree representation>},) to the rest of the expression
+                     (append (list #\") (str->chrs (car keys)) (list #\" #\: #\{) (deparse-r (keys value) value) (deparse-r (cdr keys) tr))))); Add ("<key>":{<tree representation>}) to the rest of the expression
+       (list #\})));If there are noe more values in keys return } signifying the end of the tree
+   
+; Takes in an AVL-tree and returns the JSON string representing the tree
+(defun deparse (tr) 
+   (chrs->str (cons #\{ (deparse-r (keys tr) tr ))))
 
 ;###################################################################################
 ; Input Output
@@ -506,7 +491,7 @@
       (if error-open 
           (mv error-open state)
           (mv-let (error-close state)
-                  (string-list->file f-out (list (deparse  (parse (str->chrs input-string)))) state)
+                  (string-list->file f-out   (list (deparse (parse (str->chrs input-string)))) state)
              (if error-close
                  (mv error-close state)
                  (mv (string-append "input file: "
@@ -516,21 +501,4 @@
        
 (defun main (state)
    (in-out "input.txt" "output.txt" state))
-
-
-;###################################################################################
-; Testing stuff
-
-(defun numCharP (chr) ; Determines if the character is a valid number character
-   (if (or (equal chr #\0)(equal chr #\1)(equal chr #\2)(equal chr #\3)(equal chr #\4)(equal chr #\5)(equal chr #\6)(equal chr #\7)(equal chr #\8)(equal chr #\9))
-       t
-       nil))
-
-
-   
-       
-
-   
-   
-   
    
